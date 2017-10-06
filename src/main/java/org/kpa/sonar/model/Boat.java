@@ -2,6 +2,7 @@ package org.kpa.sonar.model;
 
 import com.jme3.asset.AssetManager;
 import com.jme3.material.Material;
+import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 
 public class Boat {
@@ -13,11 +14,19 @@ public class Boat {
         Material mat_default = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
         mat_default.setTexture("ColorMap", assetManager.loadTexture("Textures/boat/boat.tga"));
         spatial.setMaterial(mat_default);
-        spatial.scale(.01f);
+        spatial.scale(.06f);
+        spatial.setLocalTranslation(0f, 0f, 0f);
     }
 
     public Spatial getSpatial() {
         return spatial;
+    }
+
+
+    public static Boat createAndAttach(AssetManager assetManager, Node rootNode) {
+        Boat boat = new Boat(assetManager);
+        rootNode.attachChild(boat.getSpatial());
+        return boat;
     }
 
 }

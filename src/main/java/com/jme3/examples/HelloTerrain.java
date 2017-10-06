@@ -14,6 +14,7 @@ import com.jme3.terrain.geomipmap.TerrainQuad;
 import com.jme3.terrain.heightmap.ImageBasedHeightMap;
 import com.jme3.texture.Texture;
 import com.jme3.texture.Texture.WrapMode;
+import org.kpa.sonar.model.Boat;
 
 /**
  * Sample 10 - How to create fast-rendering terrains from heightmaps,
@@ -31,16 +32,10 @@ public class HelloTerrain extends SimpleApplication {
 
     @Override
     public void simpleInitApp() {
-        Spatial boat = assetManager.loadModel("Models/boat/boat.obj");
-        Material mat_default = new Material(
-                assetManager, "Common/MatDefs/Misc/ShowNormals.j3md");
-        boat.setMaterial(mat_default);
-        boat.scale(.01f);
-        boat.setLocalTranslation(0f, 0f, 0f);
-        rootNode.attachChild(boat);
+        Spatial boat = Boat.createAndAttach(assetManager, rootNode).getSpatial();
+        boat.move(-25f, 0f, 0f);
 
-
-        flyCam.setMoveSpeed(50);
+        flyCam.setMoveSpeed(30);
 
         /** 1. Create terrain material and load four textures into it. */
         mat_terrain = new Material(assetManager,

@@ -29,8 +29,7 @@ public class HelloAssets extends SimpleApplication {
 
     @Override
     public void simpleInitApp() {
-        boat = new Boat(assetManager);
-        rootNode.attachChild(boat.getSpatial());
+        boat = Boat.createAndAttach(assetManager, rootNode);
 
         // Create a wall with a simple texture from test_data
         Box box = new Box(2.5f, 2.5f, 1.0f);

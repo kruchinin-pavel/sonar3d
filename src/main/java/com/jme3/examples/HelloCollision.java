@@ -16,6 +16,7 @@ import com.jme3.light.DirectionalLight;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Spatial;
+import org.kpa.sonar.model.Boat;
 
 /**
  * Example 9 - How to make walls and floors solid.
@@ -44,6 +45,9 @@ public class HelloCollision extends SimpleApplication
     }
 
     public void simpleInitApp() {
+        Boat.createAndAttach(assetManager, rootNode)
+                .getSpatial().move(0f, 1f, 0f);
+
         /** Set up Physics */
         bulletAppState = new BulletAppState();
         stateManager.attach(bulletAppState);
