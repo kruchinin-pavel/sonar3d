@@ -1,0 +1,24 @@
+group 'org.kpa'
+version '0.0.1-SNAPSHOT'
+
+
+apply plugin: 'java'
+repositories {
+    mavenCentral()
+    jcenter()
+    maven { url "http://dl.bintray.com/jmonkeyengine/org.jmonkeyengine" }
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+def jme3 = [v: '3.1.0-stable', g: 'org.jmonkeyengine']
+dependencies {
+    testCompile("junit:junit:4.12")
+    compile 'org.apache.commons:commons-lang3:3.4'
+    compile 'com.google.guava:guava:19.0'
+    compile 'ch.qos.logback:logback-core:1.1.7'
+    compile 'ch.qos.logback:logback-classic:1.1.7'
+    compile 'org.slf4j:slf4j-api:1.7.21'
+    compile fileTree(dir: 'lib/jme/', include: '*.jar')
+}

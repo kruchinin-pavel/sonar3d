@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.kpa.sonar.HelloAssetsTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2017-10-06T07:51:07" hostname="krucpav-HP-EliteBook-840-G2" time="0.003">
+  <properties/>
+  <testcase name="doHelloAssetTest" classname="org.kpa.sonar.HelloAssetsTest" time="0.003"/>
+  <system-out><![CDATA[Everything is okay
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
