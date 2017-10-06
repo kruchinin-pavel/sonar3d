@@ -1,0 +1,503 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.1" xmlns="http://www.topografix.com/GPX/1/1"
+     creator="Raymarine" xmlns:raymarine="http://www.raymarine.com"
+     xsi:schemaLocation="http://www.raymarine.com http://raymarine.com/gpx_schema/RaymarineGPXExtensions.xsd http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
+ <trk>
+  <name>???????? 1</name>
+  <extensions>
+   <raymarine:Colour>Black</raymarine:Colour>
+   <raymarine:GUID>c901-5d95-0001-c903</raymarine:GUID>
+  </extensions>
+  <trkseg>
+   <trkpt lon="37.85661840811372" lat="57.24426758461562">
+    <extensions>
+     <raymarine:WaterTemp>294.85</raymarine:WaterTemp>
+     <raymarine:WaterDepth>7.63</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.85655026324093" lat="57.24428330720794">
+    <extensions>
+     <raymarine:WaterTemp>294.95</raymarine:WaterTemp>
+     <raymarine:WaterDepth>7.48</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.85648052580655" lat="57.24429812097376">
+    <extensions>
+     <raymarine:WaterTemp>294.85</raymarine:WaterTemp>
+     <raymarine:WaterDepth>6.61</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.85640919581056" lat="57.24430948121955">
+    <extensions>
+     <raymarine:WaterTemp>294.85</raymarine:WaterTemp>
+     <raymarine:WaterDepth>7.53</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.85634180530906" lat="57.24431029915712">
+    <extensions>
+     <raymarine:WaterTemp>294.85</raymarine:WaterTemp>
+     <raymarine:WaterDepth>8.37</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.85627307370305" lat="57.24429871170662">
+    <extensions>
+     <raymarine:WaterTemp>294.85</raymarine:WaterTemp>
+     <raymarine:WaterDepth>7.9</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.8562134783715" lat="57.24428171677263">
+    <extensions>
+     <raymarine:WaterTemp>294.95</raymarine:WaterTemp>
+     <raymarine:WaterDepth>6.84</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.85614843480289" lat="57.24426949313875">
+    <extensions>
+     <raymarine:WaterTemp>294.95</raymarine:WaterTemp>
+     <raymarine:WaterDepth>6.19</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.8560839779675" lat="57.24426558521033">
+    <extensions>
+     <raymarine:WaterTemp>294.95</raymarine:WaterTemp>
+     <raymarine:WaterDepth>5.61</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.85601465962827" lat="57.24427521870753">
+    <extensions>
+     <raymarine:WaterTemp>294.95</raymarine:WaterTemp>
+     <raymarine:WaterDepth>5.54</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.85594651475549" lat="57.24429107761959">
+    <extensions>
+     <raymarine:WaterTemp>294.95</raymarine:WaterTemp>
+     <raymarine:WaterDepth>5.57</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.85587426275015" lat="57.24431020827515">
+    <extensions>
+     <raymarine:WaterTemp>294.85</raymarine:WaterTemp>
+     <raymarine:WaterDepth>6.08</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.85580351948738" lat="57.24432802113315">
+    <extensions>
+     <raymarine:WaterTemp>294.85</raymarine:WaterTemp>
+     <raymarine:WaterDepth>6.46</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.85573612898588" lat="57.24434219870781">
+    <extensions>
+     <raymarine:WaterTemp>294.85</raymarine:WaterTemp>
+     <raymarine:WaterDepth>6.78</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.85566655918956" lat="57.24435287732614">
+    <extensions>
+     <raymarine:WaterTemp>294.85</raymarine:WaterTemp>
+     <raymarine:WaterDepth>6.73</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.85559707321227" lat="57.2443604205185">
+    <extensions>
+     <raymarine:WaterTemp>294.85</raymarine:WaterTemp>
+     <raymarine:WaterDepth>6.4</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.8555295150727" lat="57.24436591886858">
+    <extensions>
+     <raymarine:WaterTemp>294.85</raymarine:WaterTemp>
+     <raymarine:WaterDepth>6.38</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.85545642487705" lat="57.24437409823079">
+    <extensions>
+     <raymarine:WaterTemp>294.85</raymarine:WaterTemp>
+     <raymarine:WaterDepth>6.43</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.85538366995752" lat="57.24438327729067">
+    <extensions>
+     <raymarine:WaterTemp>294.85</raymarine:WaterTemp>
+     <raymarine:WaterDepth>6.24</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.85530840046704" lat="57.24439291075699">
+    <extensions>
+     <raymarine:WaterTemp>294.85</raymarine:WaterTemp>
+     <raymarine:WaterDepth>6.65</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.85523639991879" lat="57.24439640970405">
+    <extensions>
+     <raymarine:WaterTemp>294.85</raymarine:WaterTemp>
+     <raymarine:WaterDepth>6.9</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.85516389645636" lat="57.24439500103709">
+    <extensions>
+     <raymarine:WaterTemp>294.85</raymarine:WaterTemp>
+     <raymarine:WaterDepth>6.39</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.85509541630745" lat="57.24439609161796">
+    <extensions>
+     <raymarine:WaterTemp>294.85</raymarine:WaterTemp>
+     <raymarine:WaterDepth>6.03</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.85502106882632" lat="57.24440208981216">
+    <extensions>
+     <raymarine:WaterTemp>294.85</raymarine:WaterTemp>
+     <raymarine:WaterDepth>5.77</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.85495351068676" lat="57.2444091785859">
+    <extensions>
+     <raymarine:WaterTemp>294.85</raymarine:WaterTemp>
+     <raymarine:WaterDepth>5.33</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.85488125868142" lat="57.24441922101299">
+    <extensions>
+     <raymarine:WaterTemp>294.85</raymarine:WaterTemp>
+     <raymarine:WaterDepth>5.56</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.85480858758092" lat="57.24443130827451">
+    <extensions>
+     <raymarine:WaterTemp>294.85</raymarine:WaterTemp>
+     <raymarine:WaterDepth>5.73</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.85473516210914" lat="57.2444398057079">
+    <extensions>
+     <raymarine:WaterTemp>294.85</raymarine:WaterTemp>
+     <raymarine:WaterDepth>5.76</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.85466190427542" lat="57.24445112046906">
+    <extensions>
+     <raymarine:WaterTemp>294.85</raymarine:WaterTemp>
+     <raymarine:WaterDepth>5.67</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.854586802423" lat="57.24446188993728">
+    <extensions>
+     <raymarine:WaterTemp>294.85</raymarine:WaterTemp>
+     <raymarine:WaterDepth>5.67</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.85451379604638" lat="57.24446638857496">
+    <extensions>
+     <raymarine:WaterTemp>294.85</raymarine:WaterTemp>
+     <raymarine:WaterDepth>5.69</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.85445101559162" lat="57.24446897869946">
+    <extensions>
+     <raymarine:WaterTemp>294.85</raymarine:WaterTemp>
+     <raymarine:WaterDepth>5.56</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.85441178828478" lat="57.24447097809365">
+    <extensions>
+     <raymarine:WaterTemp>294.85</raymarine:WaterTemp>
+     <raymarine:WaterDepth>5.46</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.85438362509012" lat="57.24446938766647">
+    <extensions>
+     <raymarine:WaterTemp>294.85</raymarine:WaterTemp>
+     <raymarine:WaterDepth>5.48</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.85436065867543" lat="57.24446670666045">
+    <extensions>
+     <raymarine:WaterTemp>294.85</raymarine:WaterTemp>
+     <raymarine:WaterDepth>5.49</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.85434490069747" lat="57.24446370756873">
+    <extensions>
+     <raymarine:WaterTemp>294.85</raymarine:WaterTemp>
+     <raymarine:WaterDepth>5.34</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.85433752462268" lat="57.24446139008861">
+    <extensions>
+     <raymarine:WaterTemp>294.85</raymarine:WaterTemp>
+     <raymarine:WaterDepth>5.19</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.85433526150882" lat="57.24446061759521">
+    <extensions>
+     <raymarine:WaterTemp>294.85</raymarine:WaterTemp>
+     <raymarine:WaterDepth>5.01</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.85432117991149" lat="57.2444538014762">
+    <extensions>
+     <raymarine:WaterTemp>294.85</raymarine:WaterTemp>
+     <raymarine:WaterDepth>4.85</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.85432000644505" lat="57.24445280177865">
+    <extensions>
+     <raymarine:WaterTemp>294.95</raymarine:WaterTemp>
+     <raymarine:WaterDepth>4.76</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.85431338474154" lat="57.24444371361776">
+    <extensions>
+     <raymarine:WaterTemp>294.95</raymarine:WaterTemp>
+     <raymarine:WaterDepth>4.67</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.85431288182735" lat="57.24444307744642">
+    <extensions>
+     <raymarine:WaterTemp>294.95</raymarine:WaterTemp>
+     <raymarine:WaterDepth>4.56</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.85431003198028" lat="57.24443589779762">
+    <extensions>
+     <raymarine:WaterTemp>294.95</raymarine:WaterTemp>
+     <raymarine:WaterDepth>4.36</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.85430978052318" lat="57.24443180812359">
+    <extensions>
+     <raymarine:WaterTemp>294.95</raymarine:WaterTemp>
+     <raymarine:WaterDepth>4.33</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.8543103672564" lat="57.24442231099">
+    <extensions>
+     <raymarine:WaterTemp>294.95</raymarine:WaterTemp>
+     <raymarine:WaterDepth>4.24</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.85431598313153" lat="57.24441331370327">
+    <extensions>
+     <raymarine:WaterTemp>294.95</raymarine:WaterTemp>
+     <raymarine:WaterDepth>4.14</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.85432847216725" lat="57.24440440729605">
+    <extensions>
+     <raymarine:WaterTemp>294.95</raymarine:WaterTemp>
+     <raymarine:WaterDepth>3.97</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.85434423014522" lat="57.24439849998394">
+    <extensions>
+     <raymarine:WaterTemp>294.95</raymarine:WaterTemp>
+     <raymarine:WaterDepth>3.85</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.85435780882835" lat="57.24439740940313">
+    <extensions>
+     <raymarine:WaterTemp>294.95</raymarine:WaterTemp>
+     <raymarine:WaterDepth>3.74</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.85437448881567" lat="57.24439890895173">
+    <extensions>
+     <raymarine:WaterTemp>294.95</raymarine:WaterTemp>
+     <raymarine:WaterDepth>3.68</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.85437826067209" lat="57.24439940880124">
+    <extensions>
+     <raymarine:WaterTemp>294.95</raymarine:WaterTemp>
+     <raymarine:WaterDepth>3.66</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.85439326427877" lat="57.24439940880124">
+    <extensions>
+     <raymarine:WaterTemp>294.95</raymarine:WaterTemp>
+     <raymarine:WaterDepth>3.62</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.85439586266875" lat="57.24439881806999">
+    <extensions>
+     <raymarine:WaterTemp>294.95</raymarine:WaterTemp>
+     <raymarine:WaterDepth>3.57</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.85439929924905" lat="57.24439818189789">
+    <extensions>
+     <raymarine:WaterTemp>294.95</raymarine:WaterTemp>
+     <raymarine:WaterDepth>3.55</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+  </trkseg>
+ </trk>
+ <trk>
+  <name>Glubina</name>
+  <extensions>
+   <raymarine:Colour>Black</raymarine:Colour>
+   <raymarine:GUID>c901-5d95-0001-f0e9</raymarine:GUID>
+  </extensions>
+  <trkseg>
+   <trkpt lon="37.86034181714058" lat="57.25731252177972">
+    <extensions>
+     <raymarine:WaterTemp>289.75</raymarine:WaterTemp>
+     <raymarine:WaterDepth>9.23</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.86026026122272" lat="57.2573053900725">
+    <extensions>
+     <raymarine:WaterTemp>289.75</raymarine:WaterTemp>
+     <raymarine:WaterDepth>9.45</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.86017979495227" lat="57.25730348222704">
+    <extensions>
+     <raymarine:WaterTemp>289.75</raymarine:WaterTemp>
+     <raymarine:WaterDepth>9.02</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.86009597592056" lat="57.25730629857033">
+    <extensions>
+     <raymarine:WaterTemp>289.75</raymarine:WaterTemp>
+     <raymarine:WaterDepth>6.55</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.86002489738166" lat="57.25729421554762">
+    <extensions>
+     <raymarine:WaterTemp>289.75</raymarine:WaterTemp>
+     <raymarine:WaterDepth>6.55</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.8599869273603" lat="57.25726160045136">
+    <extensions>
+     <raymarine:WaterTemp>289.75</raymarine:WaterTemp>
+     <raymarine:WaterDepth>5.4</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.85999748855829" lat="57.25722448825228">
+    <extensions>
+     <raymarine:WaterTemp>289.75</raymarine:WaterTemp>
+     <raymarine:WaterDepth>5.31</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.86004610359669" lat="57.25719759664761">
+    <extensions>
+     <raymarine:WaterTemp>289.75</raymarine:WaterTemp>
+     <raymarine:WaterDepth>6.63</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.86010117270052" lat="57.25717188607473">
+    <extensions>
+     <raymarine:WaterTemp>289.75</raymarine:WaterTemp>
+     <raymarine:WaterDepth>6.62</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.86014383658767" lat="57.2571345012343">
+    <extensions>
+     <raymarine:WaterTemp>289.75</raymarine:WaterTemp>
+     <raymarine:WaterDepth>9.4</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.86016873084009" lat="57.25709620785279">
+    <extensions>
+     <raymarine:WaterTemp>289.75</raymarine:WaterTemp>
+     <raymarine:WaterDepth>9.49</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.86017342470586" lat="57.25705309936011">
+    <extensions>
+     <raymarine:WaterTemp>289.75</raymarine:WaterTemp>
+     <raymarine:WaterDepth>9.27</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.86016562953591" lat="57.25701148985021">
+    <extensions>
+     <raymarine:WaterTemp>289.75</raymarine:WaterTemp>
+     <raymarine:WaterDepth>9.39</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.86014341749251" lat="57.2569711067764">
+    <extensions>
+     <raymarine:WaterTemp>289.75</raymarine:WaterTemp>
+     <raymarine:WaterDepth>9.53</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.86011558957398" lat="57.25693590214822">
+    <extensions>
+     <raymarine:WaterTemp>289.75</raymarine:WaterTemp>
+     <raymarine:WaterDepth>9.57</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.86007912829518" lat="57.25690151514334">
+    <extensions>
+     <raymarine:WaterTemp>289.75</raymarine:WaterTemp>
+     <raymarine:WaterDepth>9.65</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.86006169393659" lat="57.25687989265084">
+    <extensions>
+     <raymarine:WaterTemp>289.75</raymarine:WaterTemp>
+     <raymarine:WaterDepth>9.73</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.86006261594594" lat="57.25686540193971">
+    <extensions>
+     <raymarine:WaterTemp>289.75</raymarine:WaterTemp>
+     <raymarine:WaterDepth>9.79</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.86007141694427" lat="57.25685481781168">
+    <extensions>
+     <raymarine:WaterTemp>289.75</raymarine:WaterTemp>
+     <raymarine:WaterDepth>9.79</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.86008558236063" lat="57.25684918505559">
+    <extensions>
+     <raymarine:WaterTemp>289.75</raymarine:WaterTemp>
+     <raymarine:WaterDepth>9.69</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.86010653711855" lat="57.25684641410267">
+    <extensions>
+     <raymarine:WaterTemp>289.75</raymarine:WaterTemp>
+     <raymarine:WaterDepth>9.72</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.86012531258166" lat="57.25684591442262">
+    <extensions>
+     <raymarine:WaterTemp>289.75</raymarine:WaterTemp>
+     <raymarine:WaterDepth>9.43</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.86013059318066" lat="57.25685418185539">
+    <extensions>
+     <raymarine:WaterTemp>289.75</raymarine:WaterTemp>
+     <raymarine:WaterDepth>9.36</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.8601404838264" lat="57.25686181333012">
+    <extensions>
+     <raymarine:WaterTemp>289.75</raymarine:WaterTemp>
+     <raymarine:WaterDepth>9.55</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.86015288904309" lat="57.25687048958815">
+    <extensions>
+     <raymarine:WaterTemp>289.75</raymarine:WaterTemp>
+     <raymarine:WaterDepth>9.57</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+   <trkpt lon="37.86016227677464" lat="57.25687539553422">
+    <extensions>
+     <raymarine:WaterTemp>289.75</raymarine:WaterTemp>
+     <raymarine:WaterDepth>9.48</raymarine:WaterDepth>
+    </extensions>
+   </trkpt>
+  </trkseg>
+ </trk>
+</gpx>

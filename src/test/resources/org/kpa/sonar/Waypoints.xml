@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.1" xmlns="http://www.topografix.com/GPX/1/1"
+     creator="Raymarine" xmlns:raymarine="http://www.raymarine.com"
+     xsi:schemaLocation="http://www.raymarine.com http://raymarine.com/gpx_schema/RaymarineGPXExtensions.xsd http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
+ <wpt lon="42.8180718" lat="55.9792038">
+  <time>2016-06-28T09:18:01Z</time>
+  <name>byot</name>
+  <sym>Fish 3 Star</sym>
+  <extensions>
+   <raymarine:GUID>c901-5d95-0000-80b1</raymarine:GUID>
+   <raymarine:WaterTemp>297.35</raymarine:WaterTemp>
+   <raymarine:WaterDepth>6.06</raymarine:WaterDepth>
+  </extensions>
+ </wpt>
+ <wpt lon="42.7164507" lat="55.9521633">
+  <time>2016-06-29T17:31:51Z</time>
+  <name>Shuka jig sval</name>
+  <sym>Fish 3 Star</sym>
+  <extensions>
+   <raymarine:GUID>c901-5d95-0000-b0b4</raymarine:GUID>
+   <raymarine:WaterTemp>297.65</raymarine:WaterTemp>
+   <raymarine:WaterDepth>2.04</raymarine:WaterDepth>
+  </extensions>
+ </wpt>
+ <wpt lon="42.7164524" lat="55.9524662">
+  <time>2016-06-30T15:29:30Z</time>
+  <name>Waypoint 8</name>
+  <sym>Fish 3 Star</sym>
+  <extensions>
+   <raymarine:GUID>c901-5d95-0000-c87c</raymarine:GUID>
+   <raymarine:WaterTemp>297.72</raymarine:WaterTemp>
+   <raymarine:WaterDepth>3.65</raymarine:WaterDepth>
+  </extensions>
+ </wpt>
+ <wpt lon="42.6633416" lat="55.9432855">
+  <time>2016-06-30T16:06:47Z</time>
+  <name>Sval</name>
+  <sym>Fish 3 Star</sym>
+  <extensions>
+   <raymarine:GUID>c901-5d95-0000-c8aa</raymarine:GUID>
+   <raymarine:WaterTemp>297.55</raymarine:WaterTemp>
+   <raymarine:WaterDepth>2.09</raymarine:WaterDepth>
+  </extensions>
+ </wpt>
+ <wpt lon="42.633299" lat="55.9300624">
+  <time>2016-06-30T16:26:34Z</time>
+  <name>Perekat</name>
+  <sym>Fish 3 Star</sym>
+  <extensions>
+   <raymarine:GUID>c901-5d95-0000-c8cc</raymarine:GUID>
+   <raymarine:WaterTemp>297.75</raymarine:WaterTemp>
+   <raymarine:WaterDepth>1.48</raymarine:WaterDepth>
+  </extensions>
+ </wpt>
+ <wpt lon="42.6881032" lat="55.9576707">
+  <time>2016-07-01T08:39:42Z</time>
+  <name>derevo na dne</name>
+  <sym>FAD (Fish Attracting Device)</sym>
+  <extensions>
+   <raymarine:GUID>c901-5d95-0000-d8d6</raymarine:GUID>
+   <raymarine:WaterTemp>297.97</raymarine:WaterTemp>
+   <raymarine:WaterDepth>2.8</raymarine:WaterDepth>
+  </extensions>
+ </wpt>
+ <wpt lon="42.7112563" lat="55.9530578">
+  <time>2016-07-10T14:59:21Z</time>
+  <name>Sudak jig</name>
+  <sym>FAD (Fish Attracting Device)</sym>
+  <extensions>
+   <raymarine:GUID>c901-5d95-0000-f8f4</raymarine:GUID>
+   <raymarine:WaterTemp>295.75</raymarine:WaterTemp>
+   <raymarine:WaterDepth>2.09</raymarine:WaterDepth>
+  </extensions>
+ </wpt>
+ <wpt lon="42.7121827" lat="55.9536559">
+  <time>2016-07-16T05:48:01Z</time>
+  <name>Waypoint 13</name>
+  <sym>FAD (Fish Attracting Device)</sym>
+  <extensions>
+   <raymarine:GUID>c901-5d95-0001-00e7</raymarine:GUID>
+   <raymarine:WaterTemp>297.55</raymarine:WaterTemp>
+   <raymarine:WaterDepth>3.46</raymarine:WaterDepth>
+  </extensions>
+ </wpt>
+ <wpt lon="42.7135212" lat="55.9539052">
+  <time>2016-07-16T05:49:14Z</time>
+  <name>Waypoint 14Svalk</name>
+  <sym>FAD (Fish Attracting Device)</sym>
+  <extensions>
+   <raymarine:GUID>c901-5d95-0001-00e9</raymarine:GUID>
+   <raymarine:WaterTemp>297.55</raymarine:WaterTemp>
+   <raymarine:WaterDepth>3.88</raymarine:WaterDepth>
+  </extensions>
+ </wpt>
+ <wpt lon="42.713569" lat="55.9539318">
+  <time>2016-07-16T05:50:02Z</time>
+  <name>Waypoint 15</name>
+  <sym>FAD (Fish Attracting Device)</sym>
+  <extensions>
+   <raymarine:GUID>c901-5d95-0001-00ee</raymarine:GUID>
+   <raymarine:WaterTemp>297.6</raymarine:WaterTemp>
+   <raymarine:WaterDepth>4.41</raymarine:WaterDepth>
+  </extensions>
+ </wpt>
+ <wpt lon="42.7135485" lat="55.9539228">
+  <time>2016-07-16T05:51:03Z</time>
+  <name>Coolsval4metra</name>
+  <sym>FAD (Fish Attracting Device)</sym>
+  <extensions>
+   <raymarine:GUID>c901-5d95-0001-00f0</raymarine:GUID>
+   <raymarine:WaterTemp>297.6</raymarine:WaterTemp>
+   <raymarine:WaterDepth>4.38</raymarine:WaterDepth>
+  </extensions>
+ </wpt>
+ <wpt lon="42.7089914" lat="55.9539509">
+  <time>2016-07-17T14:58:04Z</time>
+  <name>Som</name>
+  <sym>FAD (Fish Attracting Device)</sym>
+  <extensions>
+   <raymarine:GUID>c901-5d95-0001-116d</raymarine:GUID>
+   <raymarine:WaterTemp>299.07</raymarine:WaterTemp>
+   <raymarine:WaterDepth>3.01</raymarine:WaterDepth>
+  </extensions>
+ </wpt>
+ <wpt lon="37.8495043" lat="57.2557001">
+  <time>2016-08-20T11:58:34Z</time>
+  <name>Brovka</name>
+  <sym>FAD (Fish Attracting Device)</sym>
+  <extensions>
+   <raymarine:GUID>c901-5d95-0001-1898</raymarine:GUID>
+   <raymarine:WaterTemp>295.51</raymarine:WaterTemp>
+   <raymarine:WaterDepth>10.72</raymarine:WaterDepth>
+  </extensions>
+ </wpt>
+ <wpt lon="37.7390804" lat="57.2252676">
+  <time>2016-09-03T10:09:17Z</time>
+  <name>Waypoint 19</name>
+  <sym>FAD (Fish Attracting Device)</sym>
+  <extensions>
+   <raymarine:GUID>c901-5d95-0001-2148</raymarine:GUID>
+   <raymarine:WaterTemp>292.95</raymarine:WaterTemp>
+  </extensions>
+ </wpt>
+ <wpt lon="37.8427345" lat="57.2452291">
+  <time>2017-07-15T02:54:05Z</time>
+  <name>Waypoint 20Ryb</name>
+  <sym>FAD (Fish Attracting Device)</sym>
+  <extensions>
+   <raymarine:GUID>c901-5d95-0001-7090</raymarine:GUID>
+   <raymarine:WaterTemp>291.75</raymarine:WaterTemp>
+   <raymarine:WaterDepth>3.3</raymarine:WaterDepth>
+  </extensions>
+ </wpt>
+ <wpt lon="37.8781244" lat="57.2258411">
+  <time>2017-07-15T04:06:05Z</time>
+  <name>Waypoint 21</name>
+  <sym>FAD (Fish Attracting Device)</sym>
+  <extensions>
+   <raymarine:GUID>c901-5d95-0001-80d9</raymarine:GUID>
+   <raymarine:WaterTemp>291.85</raymarine:WaterTemp>
+   <raymarine:WaterDepth>1.87</raymarine:WaterDepth>
+  </extensions>
+ </wpt>
+ <wpt lon="37.8784367" lat="57.2261365">
+  <time>2017-07-22T04:54:01Z</time>
+  <name>Waypoint 22</name>
+  <sym>FAD (Fish Attracting Device)</sym>
+  <extensions>
+   <raymarine:GUID>c901-5d95-0001-90a4</raymarine:GUID>
+   <raymarine:WaterTemp>293.15</raymarine:WaterTemp>
+   <raymarine:WaterDepth>2.38</raymarine:WaterDepth>
+  </extensions>
+ </wpt>
+ <wpt lon="37.8599534" lat="57.2438993">
+  <time>2017-07-22T06:05:32Z</time>
+  <name>Kotel okub</name>
+  <sym>FAD (Fish Attracting Device)</sym>
+  <extensions>
+   <raymarine:GUID>c901-5d95-0001-90ef</raymarine:GUID>
+   <raymarine:WaterTemp>293.45</raymarine:WaterTemp>
+   <raymarine:WaterDepth>2.09</raymarine:WaterDepth>
+  </extensions>
+ </wpt>
+ <wpt lon="37.8635061" lat="57.258755">
+  <time>2017-07-22T08:21:04Z</time>
+  <name>Sudak jig1</name>
+  <sym>FAD (Fish Attracting Device)</sym>
+  <extensions>
+   <raymarine:GUID>c901-5d95-0001-a11b</raymarine:GUID>
+   <raymarine:WaterTemp>293.65</raymarine:WaterTemp>
+   <raymarine:WaterDepth>6.27</raymarine:WaterDepth>
+  </extensions>
+ </wpt>
+ <wpt lon="37.8608742" lat="57.2571191">
+  <time>2017-09-17T08:41:16Z</time>
+  <name>Jig</name>
+  <sym>FAD (Fish Attracting Device)</sym>
+  <extensions>
+   <raymarine:GUID>c901-5d95-0001-f0d5</raymarine:GUID>
+   <raymarine:WaterTemp>289.84</raymarine:WaterTemp>
+   <raymarine:WaterDepth>5.97</raymarine:WaterDepth>
+  </extensions>
+ </wpt>
+ <wpt lon="42.8180718" lat="55.9792038">
+  <time>2016-06-28T09:18:01Z</time>
+  <name>byot</name>
+  <sym>Fish 3 Star</sym>
+  <extensions>
+   <raymarine:GUID>c901-5d95-0000-80b1</raymarine:GUID>
+   <raymarine:WaterTemp>297.35</raymarine:WaterTemp>
+   <raymarine:WaterDepth>6.06</raymarine:WaterDepth>
+  </extensions>
+ </wpt>
+ <wpt lon="42.7164507" lat="55.9521633">
+  <time>2016-06-29T17:31:51Z</time>
+  <name>Shuka jig sval</name>
+  <sym>Fish 3 Star</sym>
+  <extensions>
+   <raymarine:GUID>c901-5d95-0000-b0b4</raymarine:GUID>
+   <raymarine:WaterTemp>297.65</raymarine:WaterTemp>
+   <raymarine:WaterDepth>2.04</raymarine:WaterDepth>
+  </extensions>
+ </wpt>
+ <wpt lon="42.7164524" lat="55.9524662">
+  <time>2016-06-30T15:29:30Z</time>
+  <name>Waypoint 8</name>
+  <sym>Fish 3 Star</sym>
+  <extensions>
+   <raymarine:GUID>c901-5d95-0000-c87c</raymarine:GUID>
+   <raymarine:WaterTemp>297.72</raymarine:WaterTemp>
+   <raymarine:WaterDepth>3.65</raymarine:WaterDepth>
+  </extensions>
+ </wpt>
+ <wpt lon="42.6633416" lat="55.9432855">
+  <time>2016-06-30T16:06:47Z</time>
+  <name>Sval</name>
+  <sym>Fish 3 Star</sym>
+  <extensions>
+   <raymarine:GUID>c901-5d95-0000-c8aa</raymarine:GUID>
+   <raymarine:WaterTemp>297.55</raymarine:WaterTemp>
+   <raymarine:WaterDepth>2.09</raymarine:WaterDepth>
+  </extensions>
+ </wpt>
+ <wpt lon="42.633299" lat="55.9300624">
+  <time>2016-06-30T16:26:34Z</time>
+  <name>Perekat</name>
+  <sym>Fish 3 Star</sym>
+  <extensions>
+   <raymarine:GUID>c901-5d95-0000-c8cc</raymarine:GUID>
+   <raymarine:WaterTemp>297.75</raymarine:WaterTemp>
+   <raymarine:WaterDepth>1.48</raymarine:WaterDepth>
+  </extensions>
+ </wpt>
+ <wpt lon="42.6881032" lat="55.9576707">
+  <time>2016-07-01T08:39:42Z</time>
+  <name>derevo na dne</name>
+  <sym>FAD (Fish Attracting Device)</sym>
+  <extensions>
+   <raymarine:GUID>c901-5d95-0000-d8d6</raymarine:GUID>
+   <raymarine:WaterTemp>297.97</raymarine:WaterTemp>
+   <raymarine:WaterDepth>2.8</raymarine:WaterDepth>
+  </extensions>
+ </wpt>
+ <wpt lon="42.7112563" lat="55.9530578">
+  <time>2016-07-10T14:59:21Z</time>
+  <name>Sudak jig</name>
+  <sym>FAD (Fish Attracting Device)</sym>
+  <extensions>
+   <raymarine:GUID>c901-5d95-0000-f8f4</raymarine:GUID>
+   <raymarine:WaterTemp>295.75</raymarine:WaterTemp>
+   <raymarine:WaterDepth>2.09</raymarine:WaterDepth>
+  </extensions>
+ </wpt>
+ <wpt lon="42.7121827" lat="55.9536559">
+  <time>2016-07-16T05:48:01Z</time>
+  <name>Waypoint 13</name>
+  <sym>FAD (Fish Attracting Device)</sym>
+  <extensions>
+   <raymarine:GUID>c901-5d95-0001-00e7</raymarine:GUID>
+   <raymarine:WaterTemp>297.55</raymarine:WaterTemp>
+   <raymarine:WaterDepth>3.46</raymarine:WaterDepth>
+  </extensions>
+ </wpt>
+ <wpt lon="42.7135212" lat="55.9539052">
+  <time>2016-07-16T05:49:14Z</time>
+  <name>Waypoint 14Svalk</name>
+  <sym>FAD (Fish Attracting Device)</sym>
+  <extensions>
+   <raymarine:GUID>c901-5d95-0001-00e9</raymarine:GUID>
+   <raymarine:WaterTemp>297.55</raymarine:WaterTemp>
+   <raymarine:WaterDepth>3.88</raymarine:WaterDepth>
+  </extensions>
+ </wpt>
+ <wpt lon="42.713569" lat="55.9539318">
+  <time>2016-07-16T05:50:02Z</time>
+  <name>Waypoint 15</name>
+  <sym>FAD (Fish Attracting Device)</sym>
+  <extensions>
+   <raymarine:GUID>c901-5d95-0001-00ee</raymarine:GUID>
+   <raymarine:WaterTemp>297.6</raymarine:WaterTemp>
+   <raymarine:WaterDepth>4.41</raymarine:WaterDepth>
+  </extensions>
+ </wpt>
+ <wpt lon="42.7135485" lat="55.9539228">
+  <time>2016-07-16T05:51:03Z</time>
+  <name>Coolsval4metra</name>
+  <sym>FAD (Fish Attracting Device)</sym>
+  <extensions>
+   <raymarine:GUID>c901-5d95-0001-00f0</raymarine:GUID>
+   <raymarine:WaterTemp>297.6</raymarine:WaterTemp>
+   <raymarine:WaterDepth>4.38</raymarine:WaterDepth>
+  </extensions>
+ </wpt>
+ <wpt lon="42.7089914" lat="55.9539509">
+  <time>2016-07-17T14:58:04Z</time>
+  <name>Som</name>
+  <sym>FAD (Fish Attracting Device)</sym>
+  <extensions>
+   <raymarine:GUID>c901-5d95-0001-116d</raymarine:GUID>
+   <raymarine:WaterTemp>299.07</raymarine:WaterTemp>
+   <raymarine:WaterDepth>3.01</raymarine:WaterDepth>
+  </extensions>
+ </wpt>
+ <wpt lon="37.8495043" lat="57.2557001">
+  <time>2016-08-20T11:58:34Z</time>
+  <name>Brovka</name>
+  <sym>FAD (Fish Attracting Device)</sym>
+  <extensions>
+   <raymarine:GUID>c901-5d95-0001-1898</raymarine:GUID>
+   <raymarine:WaterTemp>295.51</raymarine:WaterTemp>
+   <raymarine:WaterDepth>10.72</raymarine:WaterDepth>
+  </extensions>
+ </wpt>
+ <wpt lon="37.7390804" lat="57.2252676">
+  <time>2016-09-03T10:09:17Z</time>
+  <name>Waypoint 19</name>
+  <sym>FAD (Fish Attracting Device)</sym>
+  <extensions>
+   <raymarine:GUID>c901-5d95-0001-2148</raymarine:GUID>
+   <raymarine:WaterTemp>292.95</raymarine:WaterTemp>
+  </extensions>
+ </wpt>
+ <wpt lon="37.8427345" lat="57.2452291">
+  <time>2017-07-15T02:54:05Z</time>
+  <name>Waypoint 20Ryb</name>
+  <sym>FAD (Fish Attracting Device)</sym>
+  <extensions>
+   <raymarine:GUID>c901-5d95-0001-7090</raymarine:GUID>
+   <raymarine:WaterTemp>291.75</raymarine:WaterTemp>
+   <raymarine:WaterDepth>3.3</raymarine:WaterDepth>
+  </extensions>
+ </wpt>
+ <wpt lon="37.8781244" lat="57.2258411">
+  <time>2017-07-15T04:06:05Z</time>
+  <name>Waypoint 21</name>
+  <sym>FAD (Fish Attracting Device)</sym>
+  <extensions>
+   <raymarine:GUID>c901-5d95-0001-80d9</raymarine:GUID>
+   <raymarine:WaterTemp>291.85</raymarine:WaterTemp>
+   <raymarine:WaterDepth>1.87</raymarine:WaterDepth>
+  </extensions>
+ </wpt>
+ <wpt lon="37.8784367" lat="57.2261365">
+  <time>2017-07-22T04:54:01Z</time>
+  <name>Waypoint 22</name>
+  <sym>FAD (Fish Attracting Device)</sym>
+  <extensions>
+   <raymarine:GUID>c901-5d95-0001-90a4</raymarine:GUID>
+   <raymarine:WaterTemp>293.15</raymarine:WaterTemp>
+   <raymarine:WaterDepth>2.38</raymarine:WaterDepth>
+  </extensions>
+ </wpt>
+ <wpt lon="37.8599534" lat="57.2438993">
+  <time>2017-07-22T06:05:32Z</time>
+  <name>Kotel okub</name>
+  <sym>FAD (Fish Attracting Device)</sym>
+  <extensions>
+   <raymarine:GUID>c901-5d95-0001-90ef</raymarine:GUID>
+   <raymarine:WaterTemp>293.45</raymarine:WaterTemp>
+   <raymarine:WaterDepth>2.09</raymarine:WaterDepth>
+  </extensions>
+ </wpt>
+ <wpt lon="37.8635061" lat="57.258755">
+  <time>2017-07-22T08:21:04Z</time>
+  <name>Sudak jig1</name>
+  <sym>FAD (Fish Attracting Device)</sym>
+  <extensions>
+   <raymarine:GUID>c901-5d95-0001-a11b</raymarine:GUID>
+   <raymarine:WaterTemp>293.65</raymarine:WaterTemp>
+   <raymarine:WaterDepth>6.27</raymarine:WaterDepth>
+  </extensions>
+ </wpt>
+ <wpt lon="37.8608742" lat="57.2571191">
+  <time>2017-09-17T08:41:16Z</time>
+  <name>Jig</name>
+  <sym>FAD (Fish Attracting Device)</sym>
+  <extensions>
+   <raymarine:GUID>c901-5d95-0001-f0d5</raymarine:GUID>
+   <raymarine:WaterTemp>289.84</raymarine:WaterTemp>
+   <raymarine:WaterDepth>5.97</raymarine:WaterDepth>
+  </extensions>
+ </wpt>
+</gpx>

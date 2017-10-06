@@ -1,4 +1,4 @@
-package org.kpa.sonar;
+package org.kpa.sonar.model;
 
 import com.jme3.asset.AssetManager;
 import com.jme3.material.Material;
