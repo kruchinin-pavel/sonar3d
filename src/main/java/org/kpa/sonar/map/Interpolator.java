@@ -8,21 +8,19 @@ import java.util.Arrays;
 public class Interpolator {
 
     public static void main(String[] args) {
-        System.out.println(Arrays.toString(test3d(3, 10)));
+//        System.out.println(Arrays.toString(test3d(3, 10)));
+        test3d(5, 5, true);
     }
 
-    public static float[] test3d(int points, double max) {
-        float scale = ((float) max) / 10.f;
-        float[] res = implTest3d(points, 10, false);
-        for (int index = 0; index < res.length; index++) {
-            res[index] = res[index] * scale;
-        }
-        return res;
+    public static float[] test3d(int points, double maxVal) {
+        return test3d(points, maxVal, false);
     }
 
-    public static float[] implTest3d(int points, double max, boolean print) {
+    public static float[] test3d(int points, double maxVal, boolean print) {
+        double scale = maxVal / 10.;
+        double max = 10;
         final int DIMENSION = 2;
-        InterpolatingMicrosphere val = new InterpolatingMicrosphere(DIMENSION, 50, .1, .1, .1,
+        InterpolatingMicrosphere val = new InterpolatingMicrosphere(DIMENSION, 500, 1, .1, -100,
                 new UnitSphereRandomVectorGenerator(DIMENSION));
 
         double mid = max / 2;
@@ -41,7 +39,7 @@ public class Interpolator {
         for (int xi = 0; xi < points; xi++) {
             for (int yi = 0; yi < points; yi++) {
                 double[] p = new double[]{(double) xi / points * max, (double) yi / points * max};
-                double res = val.value(p, samplePoints, sampleVals, 1., 1.);
+                double res = val.value(p, samplePoints, sampleVals, 1., 1.) * scale;
                 if (print) System.out.println(String.format("%s\t%s", Arrays.toString(p), res));
                 values[index++] = (float) res;
             }
