@@ -20,7 +20,7 @@ public class Interpolator {
         double scale = maxVal / 10.;
         double max = 10;
         final int DIMENSION = 2;
-        InterpolatingMicrosphere val = new InterpolatingMicrosphere(DIMENSION, 500, 1, .1, -100,
+        InterpolatingMicrosphere val = new InterpolatingMicrosphere(DIMENSION, 50, 1, .1, -100,
                 new UnitSphereRandomVectorGenerator(DIMENSION));
 
         double mid = max / 2;
