@@ -1,13 +1,12 @@
 package org.kpa.sonar.io;
 
-import org.kpa.sonar.Track;
 import org.kpa.sonar.Waypoint;
+import org.kpa.util.xml.FileUtils;
 import org.kpa.util.xml.NLSIter;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Iterator;
@@ -53,7 +52,7 @@ public class XmlWaypointReader implements Iterable<Waypoint> {
     }
 
     public static XmlWaypointReader fromXmlFile(String xmlFileName) throws IOException, SAXException, ParserConfigurationException {
-        return new XmlWaypointReader(NLSIter.iter(new FileInputStream(xmlFileName)));
+        return new XmlWaypointReader(NLSIter.iter(FileUtils.classOrPath(xmlFileName)));
     }
 
     public static List<Waypoint> toList(String xmlFileName) throws ParserConfigurationException, SAXException, IOException {

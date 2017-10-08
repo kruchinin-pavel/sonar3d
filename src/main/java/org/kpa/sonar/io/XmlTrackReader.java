@@ -7,7 +7,6 @@ import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.format.DateTimeFormatter;
@@ -16,6 +15,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
+
+import static org.kpa.util.xml.FileUtils.classOrPath;
 
 public class XmlTrackReader implements Iterable<Track>, AutoCloseable {
     public static final String TRK = "trk";
@@ -79,7 +80,7 @@ public class XmlTrackReader implements Iterable<Track>, AutoCloseable {
     }
 
     public static XmlTrackReader fromXmlFile(String xmlFileName) throws IOException, SAXException, ParserConfigurationException {
-        return new XmlTrackReader(NLSIter.iter(new FileInputStream(xmlFileName)));
+        return new XmlTrackReader(NLSIter.iter(classOrPath(xmlFileName)));
     }
 
     @Override

@@ -13,7 +13,7 @@ import static org.junit.Assert.assertNotNull;
 public class XmlTrackReaderTest {
     @Test
     public void doLoadTest() throws ParserConfigurationException, SAXException, IOException {
-        XmlTrackReader reader = XmlTrackReader.fromXmlFile("src/test/resources/org/kpa/sonar/Tracks.xml");
+        XmlTrackReader reader = XmlTrackReader.fromXmlFile("/org/kpa/sonar/Tracks.xml");
 
         Iterator<Track> iter = reader.iterator();
         Track obj1 = iter.next();

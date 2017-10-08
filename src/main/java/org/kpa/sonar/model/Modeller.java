@@ -9,7 +9,7 @@ public class Modeller extends SimpleApplication {
 
     @Override
     public void simpleInitApp() {
-        Boat.createAndAttach(assetManager, rootNode);
+        Boat.createAndAttach(assetManager, rootNode).getSpatial().move(0,30,0);
         Bottom.createAndAttach(assetManager, rootNode);
         flyCam.setMoveSpeed(30);
     }
