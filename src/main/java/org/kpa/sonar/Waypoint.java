@@ -3,7 +3,7 @@ package org.kpa.sonar;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-public class Waypoint extends Point {
+public class Waypoint extends ImmutablePoint {
     private final LocalDateTime dt;
     private final String name;
 

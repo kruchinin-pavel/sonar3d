@@ -16,12 +16,18 @@ public class Track {
         this.name = name;
     }
 
+    public void addPoint(IPoint point) {
+        addPoint(point.getLongitude(), point.getLattitude(), point.getDepth(), point.getTemp());
+    }
     public void addPoint(double longitude, double lattitude, double depth, double temp) {
         addPoint(new BigDecimal(longitude), new BigDecimal(lattitude),
                 new BigDecimal(depth), new BigDecimal(temp));
     }
 
     public void addPoint(BigDecimal longitude, BigDecimal lattitude, BigDecimal depth, BigDecimal temp) {
+        if (depth == null) {
+            return;
+        }
         points.add(new TrackPoint(longitude, lattitude, depth, temp, counter.getAndIncrement()));
     }
 
@@ -29,25 +35,32 @@ public class Track {
         return Collections.unmodifiableCollection(points);
     }
 
-    public List<TrackPoint> getPoints(int numberOfInterSteps) {
+    public List<TrackPoint> getPoints(double stepInMeters) {
         int counter = 0;
         List<TrackPoint> points = new ArrayList<>(this.points.size());
         TrackPoint lastPoint = null;
         for (TrackPoint point : this.points) {
+            if (point.getDepth() == null) {
+                continue;
+            }
             if (lastPoint != null) {
-                List<BigDecimal> longs = fill(lastPoint.getLongitude(), point.getLongitude(), numberOfInterSteps);
-                List<BigDecimal> lats = fill(lastPoint.getLattitude(), point.getLattitude(), numberOfInterSteps);
-                List<BigDecimal> depts = fill(lastPoint.getDepth(), point.getDepth(), numberOfInterSteps);
-                for (int i = 0; i < longs.size(); i++) {
-                    points.add(new TrackPoint(
-                            longs.get(i),
-                            lats.get(i),
-                            depts.get(i),
-                            point.getTemp(),
-                            counter++
-                    ));
+                int numberOfInterSteps = (int) (lastPoint.distMeters(point) / stepInMeters);
+                if (numberOfInterSteps > 1) {
+                    List<BigDecimal> longs = fill(lastPoint.getLongitude(), point.getLongitude(), numberOfInterSteps);
+                    List<BigDecimal> lats = fill(lastPoint.getLattitude(), point.getLattitude(), numberOfInterSteps);
+                    List<BigDecimal> depts = fill(lastPoint.getDepth(), point.getDepth(), numberOfInterSteps);
+                    for (int i = 0; i < longs.size(); i++) {
+                        points.add(new TrackPoint(
+                                longs.get(i),
+                                lats.get(i),
+                                depts.get(i),
+                                point.getTemp(),
+                                counter++
+                        ));
+                    }
                 }
             }
+            points.add(point);
             lastPoint = point;
         }
         return Collections.unmodifiableList(points);

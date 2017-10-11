@@ -1,6 +1,6 @@
 package org.kpa.sonar.io;
 
-import org.kpa.sonar.Point;
+import org.kpa.sonar.IPoint;
 import org.supercsv.io.CsvMapWriter;
 import org.supercsv.prefs.CsvPreference;
 
@@ -24,7 +24,7 @@ public class CsvPointsExport implements AutoCloseable {
         csvMapWriter.writeHeader(header);
     }
 
-    public void print(Point point, String name, int num) {
+    public void print(IPoint point, String name, int num) {
         try {
             Map<String, Object> valMap = new HashMap<>();
             valMap.put(LON, point.getLongitude());

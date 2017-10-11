@@ -20,8 +20,8 @@ public class CsvPointsExportTest {
     @Test
     public void doExportTest() throws IOException {
         try (CsvPointsExport export = new CsvPointsExport(FILE_NAME)) {
-            export.print(new Point(BigDecimal.valueOf(1), BigDecimal.valueOf(2), BigDecimal.valueOf(3), BigDecimal.ZERO), "", 0);
-            export.print(new Point(BigDecimal.valueOf(4), BigDecimal.valueOf(5), BigDecimal.valueOf(6), BigDecimal.ZERO), "", 0);
+            export.print(new ImmutablePoint(BigDecimal.valueOf(1), BigDecimal.valueOf(2), BigDecimal.valueOf(3), BigDecimal.ZERO), "", 0);
+            export.print(new ImmutablePoint(BigDecimal.valueOf(4), BigDecimal.valueOf(5), BigDecimal.valueOf(6), BigDecimal.ZERO), "", 0);
         }
         assertTrue(new File(FILE_NAME).exists());
     }

@@ -67,12 +67,6 @@ public class XmlTrackReader implements Iterable<Track>, AutoCloseable {
                 .collect(Collectors.toList());
     }
 
-    public static List<TrackPoint> toPointList(String xmlFileName, int numberOfSteps) throws ParserConfigurationException, SAXException, IOException {
-        List<TrackPoint> points = new ArrayList<>();
-        toList(xmlFileName).forEach(track -> points.addAll(track.getPoints(numberOfSteps)));
-        return points;
-    }
-
     public static List<TrackPoint> toPointList(String xmlFileName) throws ParserConfigurationException, SAXException, IOException {
         List<TrackPoint> points = new ArrayList<>();
         toList(xmlFileName).forEach(track -> points.addAll(track.getPoints()));

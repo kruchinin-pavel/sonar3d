@@ -2,7 +2,7 @@ package org.kpa.sonar;
 
 import java.math.BigDecimal;
 
-public class TrackPoint extends Point {
+public class TrackPoint extends ImmutablePoint {
     private final int num;
 
     public TrackPoint(BigDecimal longitude, BigDecimal lattitude, BigDecimal depth, BigDecimal temp, int num) {
