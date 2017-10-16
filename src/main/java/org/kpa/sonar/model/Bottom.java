@@ -13,7 +13,7 @@ public class Bottom {
     private final TerrainQuad spatial;
     private static final Logger logger = LoggerFactory.getLogger(Bottom.class);
 
-    public Bottom(AssetManager assetManager, float[] mapArray) {
+    public Bottom(AssetManager assetManager, float[] mapArray, int gridSize) {
 
         /** 1. Create spatial material and load four textures into it. */
         mat_terrain = new Material(assetManager, "Common/MatDefs/Terrain/Terrain.j3md");
@@ -44,9 +44,8 @@ public class Bottom {
         mat_terrain.setFloat("Tex3Scale", 128f);
 
 
-        int patchSize = 65;
-        int totalSize = mapArray == null ? 513 : (int) Math.sqrt(mapArray.length) + 1;
-        spatial = new TerrainQuad("my spatial", patchSize, totalSize, mapArray);
+//        int totalSize = mapArray == null ? 513 : (int) Math.sqrt(mapArray.length) + 1;
+        spatial = new TerrainQuad("my spatial", Math.max(gridSize / 4, 2), gridSize, mapArray);
 
         /** 4. We give the spatial its material, position & scale it, and attach it. */
         spatial.setMaterial(mat_terrain);
@@ -58,8 +57,8 @@ public class Bottom {
         return spatial;
     }
 
-    public static Bottom createAndAttach(AssetManager assetManager, Node rootNode, float[] mapArray) {
-        Bottom bottom = new Bottom(assetManager, mapArray);
+    public static Bottom createAndAttach(AssetManager assetManager, Node rootNode, float[] mapArray, int gridSize) {
+        Bottom bottom = new Bottom(assetManager, mapArray, gridSize);
         rootNode.attachChild(bottom.getSpatial());
         return bottom;
     }

@@ -6,14 +6,14 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Sphere;
-import org.kpa.sonar.IPoint;
+import org.kpa.game.Point3d;
 
 public class PointJme {
-    private final IPoint point;
+    private final Point3d point;
     private Material material;
     private final Spatial spatial;
 
-    public PointJme(IPoint point, AssetManager assetManager) {
+    public PointJme(Point3d point, AssetManager assetManager) {
         this.point = point;
         spatial = new Geometry("Box", new Sphere(10, 10, 0.1f));
         spatial.setMaterial(getMaterial(assetManager));
@@ -30,12 +30,9 @@ public class PointJme {
         return spatial;
     }
 
-    public static PointJme createAndAttach(IPoint point, AssetManager assetManager, Node rootNode) {
+    public static PointJme createAndAttach(Point3d point, AssetManager assetManager, Node rootNode) {
         PointJme pt = new PointJme(point, assetManager);
-        pt.getSpatial().setLocalTranslation(
-                point.getLongitudeMeters().floatValue(),
-                -point.getDepth().floatValue(),
-                point.getLattitudeMeters().floatValue());
+        pt.getSpatial().setLocalTranslation((float) point.getX(), (float) point.getY(), (float) point.getZ());
         rootNode.attachChild(pt.getSpatial());
         return null;
     }

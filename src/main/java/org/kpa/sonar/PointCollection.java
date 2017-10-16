@@ -1,5 +1,6 @@
 package org.kpa.sonar;
 
+import org.kpa.game.Point3d;
 import org.kpa.sonar.map.Distance;
 
 import java.math.BigDecimal;
@@ -7,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class PointCollection {
     private List<IPoint> points = new ArrayList<>();
@@ -71,8 +73,18 @@ public class PointCollection {
         centerTopPoint.setDepth(BigDecimal.ZERO);
     }
 
-    public Coords getCoords() {
-        return new Coords(points, 1.);
+    public List<Point3d> to3d() {
+        return points.stream()
+                .filter(val -> val.getDepth() != null)
+                .map(val -> new Point3d(
+                        val.getLongitudeMeters().floatValue(),
+                        -val.getDepth().floatValue(),
+                        -val.getLattitudeMeters().floatValue())
+                ).collect(Collectors.toList());
+    }
+
+    public Surface getCoords() {
+        return new Surface(to3d(), -1);
     }
 
     private double getTenzor(double maxVal) {
@@ -112,13 +124,13 @@ public class PointCollection {
         return (int) Math.pow(2, Math.ceil(n));
     }
 
-    public void fillBounds(){
+    public void fillBounds() {
         Track track = new Track("bounds");
-        track.addPoint(swPoint.getLongitude(),swPoint.getLattitude(),BigDecimal.ZERO, BigDecimal.ZERO);
-        track.addPoint(swPoint.getLongitude(),nePoint.getLattitude(),BigDecimal.ZERO, BigDecimal.ZERO);
-        track.addPoint(nePoint.getLongitude(),nePoint.getLattitude(),BigDecimal.ZERO, BigDecimal.ZERO);
-        track.addPoint(nePoint.getLongitude(),swPoint.getLattitude(),BigDecimal.ZERO, BigDecimal.ZERO);
-        track.addPoint(swPoint.getLongitude(),swPoint.getLattitude(),BigDecimal.ZERO, BigDecimal.ZERO);
+        track.addPoint(swPoint.getLongitude(), swPoint.getLattitude(), BigDecimal.ZERO, BigDecimal.ZERO);
+        track.addPoint(swPoint.getLongitude(), nePoint.getLattitude(), BigDecimal.ZERO, BigDecimal.ZERO);
+        track.addPoint(nePoint.getLongitude(), nePoint.getLattitude(), BigDecimal.ZERO, BigDecimal.ZERO);
+        track.addPoint(nePoint.getLongitude(), swPoint.getLattitude(), BigDecimal.ZERO, BigDecimal.ZERO);
+        track.addPoint(swPoint.getLongitude(), swPoint.getLattitude(), BigDecimal.ZERO, BigDecimal.ZERO);
         addAll(track.getPoints(1));
     }
 }
