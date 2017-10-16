@@ -74,8 +74,9 @@ public class Surface {
 
     private static double[] generateRow(int gridSize) {
         double[] row = new double[gridSize + 1];
-        for (int i = 0; i <= gridSize; i++) {
-            row[i] = -gridSize + (double) i;
+        int index = 0;
+        for (int z = -gridSize / 2; z <= gridSize / 2; z++) {
+            row[index++] = z;
         }
         return row;
     }
@@ -97,25 +98,25 @@ public class Surface {
         private final InterpolatingMicrosphere sphere =
                 new InterpolatingMicrosphere(2, 50, 1, 0, -0,
                         new UnitSphereRandomVectorGenerator(2));
-        private final int xIndex;
-        private final float xVal;
-        private double[] yRow;
+        private final int zIndex;
+        private final float zVal;
+        private double[] xRow;
         private final Surface coords;
 
-        public InterpY(float[] values, int xIndex, float xVal, double[] yRow, Surface coords) {
+        public InterpY(float[] values, int zIndex, float zVal, double[] xRow, Surface coords) {
             this.values = values;
-            this.xIndex = xIndex;
-            this.xVal = xVal;
-            this.yRow = yRow;
+            this.zIndex = zIndex;
+            this.zVal = zVal;
+            this.xRow = xRow;
             this.coords = coords;
         }
 
         public void makeYRow() {
             int index = 0;
-            for (double yVal : yRow) {
-                double[] p = new double[]{xVal, yVal};
+            for (double xVal : xRow) {
+                double[] p = new double[]{xVal, zVal};
                 double res = sphere.value(p, coords.getPts(), coords.getVals(), 1., 1.);
-                values[yRow.length * xIndex + index] = (float) res;
+                values[xRow.length * zIndex + index] = (float) res;
                 index++;
             }
         }
@@ -165,9 +166,9 @@ public class Surface {
 
     public static Surface generateGrid(int gridFacetSize, BiFunction<Double, Double, Double> yFunction) {
         List<Point3d> pts = new ArrayList<>();
-        for (int z = -gridFacetSize / 2; z <= gridFacetSize / 2; z++) {
-            for (int x = -gridFacetSize / 2; x <= gridFacetSize / 2; x++) {
-                pts.add(new Point3d(x * 2, yFunction.apply((double) x, (double) z), z * 2));
+        for (double z : generateRow(gridFacetSize)) {
+            for (double x : generateRow(gridFacetSize)) {
+                pts.add(new Point3d(x * 2, yFunction.apply(x, z), z * 2));
             }
         }
         return new Surface(pts, gridFacetSize);

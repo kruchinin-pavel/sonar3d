@@ -1,8 +1,9 @@
 package org.kpa.sonar.model;
 
 import com.jme3.app.SimpleApplication;
+import org.kpa.sonar.PointCollection;
 import org.kpa.sonar.Surface;
-import org.kpa.sonar.map.Interpolator;
+import org.kpa.sonar.io.XmlTrackReader;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -14,21 +15,25 @@ public class Modeller extends SimpleApplication {
     static int gridSize;
 
     public static void main(String[] args) throws IOException, SAXException, ParserConfigurationException {
-//        PointCollection collection;
-//        collection = new PointCollection();
-//        collection.addAll(XmlTrackReader.toList("src/test/resources/org/kpa/sonar/Tracks.gpx").get(1).getPoints(.5));
-//        collection.fillBounds();
-//        Surface coords = collection.getCoords();
+        loadTracks();
+//        coords = generateSin(16);
 
-        coords = Interpolator.generateSin(16);
         gridSize = coords.proposeMapSizeSquareMeters();
         heights = coords.buildHeights(gridSize);
-
-//        gridSize = 4;
-//        heights = new float[(gridSize + 1) * (gridSize + 1)];
-//        Arrays.fill(heights, -20);
         new Modeller().start();
     }
+
+    public static Surface generateSin(int gridFacetSize) {
+        return Surface.generateGrid(gridFacetSize, (x, z) -> -10 + Math.sin(x*z));
+    }
+    private static void loadTracks() throws ParserConfigurationException, SAXException, IOException {
+        PointCollection collection;
+        collection = new PointCollection();
+        collection.addAll(XmlTrackReader.toList("src/test/resources/org/kpa/sonar/Tracks.gpx").get(1).getPoints(.5));
+//        collection.fillBounds();
+        coords = collection.getCoords();
+    }
+
 
     @Override
     public void simpleInitApp() {

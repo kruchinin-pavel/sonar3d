@@ -3,7 +3,6 @@ package org.kpa.sonar.map;
 import org.apache.commons.math3.analysis.interpolation.InterpolatingMicrosphere;
 import org.apache.commons.math3.random.UnitSphereRandomVectorGenerator;
 import org.kpa.sonar.ImmutablePoint;
-import org.kpa.sonar.Surface;
 import org.kpa.util.ChartBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -91,14 +90,8 @@ public class Interpolator {
             series[1][i] = res;
 //            System.out.println(String.format("%s\t%s", v, res));
         }
-
         ChartBuilder.xyChart(series, "showCorrelationChart", "i0|i1 instrument correlation", "i0/i1", "i0", "i1");
-
     }
 
-
-    public static Surface generateSin(int gridFacetSize) {
-        return Surface.generateGrid(gridFacetSize, (x, z) -> -10 + Math.sin(x*z));
-    }
 
 }
