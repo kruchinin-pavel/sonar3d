@@ -123,14 +123,4 @@ public class PointCollection {
         double n = Math.log(maxDistance) / Math.log(2);
         return (int) Math.pow(2, Math.ceil(n));
     }
-
-    public void fillBounds() {
-        Track track = new Track("bounds");
-        track.addPoint(swPoint.getLongitude(), swPoint.getLattitude(), BigDecimal.ZERO, BigDecimal.ZERO);
-        track.addPoint(swPoint.getLongitude(), nePoint.getLattitude(), BigDecimal.ZERO, BigDecimal.ZERO);
-        track.addPoint(nePoint.getLongitude(), nePoint.getLattitude(), BigDecimal.ZERO, BigDecimal.ZERO);
-        track.addPoint(nePoint.getLongitude(), swPoint.getLattitude(), BigDecimal.ZERO, BigDecimal.ZERO);
-        track.addPoint(swPoint.getLongitude(), swPoint.getLattitude(), BigDecimal.ZERO, BigDecimal.ZERO);
-        addAll(track.getPoints(1));
-    }
 }

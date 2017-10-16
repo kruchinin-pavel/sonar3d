@@ -1,5 +1,6 @@
 package org.kpa.sonar;
 
+import com.google.common.base.Preconditions;
 import org.apache.commons.math3.analysis.interpolation.InterpolatingMicrosphere;
 import org.apache.commons.math3.random.UnitSphereRandomVectorGenerator;
 import org.kpa.game.Point3d;
@@ -76,7 +77,7 @@ public class Surface {
         double[] row = new double[gridSize + 1];
         int index = 0;
         for (int z = -gridSize / 2; z <= gridSize / 2; z++) {
-            row[index++] = z;
+            row[index++] = z * 2;
         }
         return row;
     }
@@ -123,11 +124,11 @@ public class Surface {
     }
 
 
-    public float[] buildHeights(int gridSize) {
+    public float[] buildHeights() {
         if (isGrid()) {
             return getDirectGrid();
         } else {
-            return interpolateGrid(gridSize);
+            return interpolateGrid(proposeMapSizeSquareMeters());
         }
     }
 
@@ -165,12 +166,32 @@ public class Surface {
     }
 
     public static Surface generateGrid(int gridFacetSize, BiFunction<Double, Double, Double> yFunction) {
+        Preconditions.checkArgument(((gridFacetSize & -gridFacetSize) == gridFacetSize),"Not a power of two");
         List<Point3d> pts = new ArrayList<>();
-        for (double z : generateRow(gridFacetSize)) {
-            for (double x : generateRow(gridFacetSize)) {
-                pts.add(new Point3d(x * 2, yFunction.apply(x, z), z * 2));
+        double[] doubles = generateRow(gridFacetSize);
+        for (double z : doubles) {
+            for (double x : doubles) {
+                pts.add(new Point3d(x, yFunction.apply(x, z), z));
             }
         }
         return new Surface(pts, gridFacetSize);
+    }
+
+    public Surface fillBounds() {
+        if (isGrid()) {
+            return this;
+        }
+        double[] doubles = generateRow(proposeMapSizeSquareMeters());
+        List<Point3d> points = new ArrayList<>();
+        forEach(points::add);
+        double minV = doubles[0];
+        double maxV = doubles[doubles.length - 1];
+        for (double v : doubles) {
+            points.add(new Point3d(minV, 0, v));
+            points.add(new Point3d(maxV, 0, v));
+            points.add(new Point3d(v, 0, minV));
+            points.add(new Point3d(v, 0, maxV));
+        }
+        return new Surface(points, -1);
     }
 }
