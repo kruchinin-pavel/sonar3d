@@ -14,7 +14,7 @@ public class Modeller extends SimpleApplication {
 
     public static void main(String[] args) throws IOException, SAXException, ParserConfigurationException {
         coords = loadTracks();
-        coords = generateSin(16);
+//        coords = generateSin(16);
         new Modeller().start();
     }
 
@@ -25,7 +25,7 @@ public class Modeller extends SimpleApplication {
     private static Surface loadTracks() throws ParserConfigurationException, SAXException, IOException {
         PointCollection collection;
         collection = new PointCollection();
-        collection.addAll(XmlTrackReader.toList("src/test/resources/org/kpa/sonar/Tracks.gpx").get(1).getPoints(.5));
+        collection.addAll(XmlTrackReader.toList("src/test/resources/org/kpa/sonar/Tracks.gpx").get(0).getPoints(.5));
         return collection.getCoords().fillBounds();
     }
 
