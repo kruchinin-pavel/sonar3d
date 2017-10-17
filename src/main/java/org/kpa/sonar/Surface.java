@@ -147,19 +147,14 @@ public class Surface {
     public Surface toGrid() {
         if (isGrid()) {
             return this;
-        } else {
-            float[] heigths = interpolateGrid();
-            AtomicInteger index = new AtomicInteger();
-            return generateGrid(proposeMapSizeSquareMeters(), (x, z) -> (double) heigths[index.getAndIncrement()]);
         }
+        float[] heigths = interpolateGrid();
+        AtomicInteger index = new AtomicInteger();
+        return generateGrid(proposeMapSizeSquareMeters(), (x, z) -> (double) heigths[index.getAndIncrement()]);
     }
 
     public float[] buildHeights() {
-        if (isGrid()) {
-            return getDirectGrid();
-        } else {
-            return interpolateGrid();
-        }
+        return isGrid() ? getDirectGrid() : interpolateGrid();
     }
 
     private float[] interpolateGrid() {

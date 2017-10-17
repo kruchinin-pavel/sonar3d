@@ -17,7 +17,7 @@ public class Modeller extends SimpleApplication {
     private static Surface coords;
 
     public static void main(String[] args) throws IOException, SAXException, ParserConfigurationException {
-        coords = loadTracks(2);
+        coords = loadTracks(1);
 //        coords = generateSin(16);
         new Modeller().start();
     }
@@ -30,7 +30,7 @@ public class Modeller extends SimpleApplication {
         PointCollection collection = XmlTrackReader
                 .toCollection("src/test/resources/org/kpa/sonar/Tracks.gpx", id);
         logger.info("URL to OpenStreetMap: {}", new OpenStreetMapRest(collection).getBoundingBoxRequest());
-        return collection.getCoords().fillBounds();
+        return collection.getCoords().fillBounds().toGrid();
     }
 
 

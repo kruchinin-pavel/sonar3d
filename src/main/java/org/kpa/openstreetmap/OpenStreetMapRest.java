@@ -2,6 +2,8 @@ package org.kpa.openstreetmap;
 
 import org.kpa.sonar.PointCollection;
 
+import java.io.InputStream;
+
 public class OpenStreetMapRest {
     private final PointCollection collection;
 
@@ -16,4 +18,9 @@ public class OpenStreetMapRest {
                 collection.getNePoint().getLongitude(), collection.getNePoint().getLattitude()
         );
     }
+
+    public void parse(InputStream  is){
+
+    }
+
 }
