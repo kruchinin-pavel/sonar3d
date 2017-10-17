@@ -1,7 +1,7 @@
 package org.kpa.game;
 
-public class Point3d {
-    private final double x, y,z;
+public class Point3d implements Comparable<Point3d> {
+    private final double x, y, z;
 
     public Point3d(double x, double y, double z) {
         this.x = x;
@@ -19,5 +19,14 @@ public class Point3d {
 
     public double getZ() {
         return z;
+    }
+
+    @Override
+    public int compareTo(Point3d o) {
+        int ret = Double.compare(z, o.z);
+        if (ret == 0) {
+            ret = Double.compare(x, o.x);
+        }
+        return ret;
     }
 }

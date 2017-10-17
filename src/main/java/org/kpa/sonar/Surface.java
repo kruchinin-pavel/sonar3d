@@ -6,12 +6,21 @@ import org.apache.commons.math3.random.UnitSphereRandomVectorGenerator;
 import org.kpa.game.Point3d;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.supercsv.cellprocessor.Optional;
+import org.supercsv.cellprocessor.ParseDouble;
+import org.supercsv.cellprocessor.ift.CellProcessor;
+import org.supercsv.io.CsvMapReader;
+import org.supercsv.io.CsvMapWriter;
+import org.supercsv.prefs.CsvPreference;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.*;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 
@@ -20,12 +29,27 @@ public class Surface {
     private final double[] vals;
     private final double minX, minY, maxX, maxY;
     private static final Logger logger = LoggerFactory.getLogger(Surface.class);
-    private final int gridSize;
+    private final boolean isGrid;
 
-    public Surface(List<Point3d> points, int gridSize) {
+    private boolean guessGrid() {
+        double[] row = generateRow(proposeMapSizeSquareMeters());
+        int index = 0;
+        for (double z : row) {
+            for (double x : row) {
+                if (index >= pts.length || pts[index][0] != x || pts[index][1] != z) {
+                    return false;
+                }
+                index++;
+            }
+        }
+        return true;
+    }
+
+    public Surface(List<Point3d> _points) {
+        List<Point3d> points = new ArrayList<>(_points);
+        Collections.sort(points);
         pts = new double[points.size()][2];
         vals = new double[points.size()];
-        this.gridSize = gridSize;
         double minX = 0, minZ = 0, maxX = 0, maxZ = 0;
         int index = 0;
         for (Point3d point : points) {
@@ -48,6 +72,7 @@ public class Surface {
         this.minY = minZ;
         this.maxX = maxX;
         this.maxY = maxZ;
+        isGrid = guessGrid();
     }
 
     public double getMaxDistance() {
@@ -55,13 +80,9 @@ public class Surface {
     }
 
     public int proposeMapSizeSquareMeters() {
-        if (isGrid()) {
-            return gridSize;
-        } else {
-            double maxDistance = getMaxDistance();
-            double n = Math.log(maxDistance) / Math.log(2);
-            return (int) Math.pow(2, Math.ceil(n));
-        }
+        double maxDistance = getMaxDistance();
+        double n = Math.log(maxDistance) / Math.log(2) - 1;
+        return (int) Math.pow(2, Math.ceil(n));
     }
 
     public double[][] getPts() {
@@ -73,11 +94,11 @@ public class Surface {
     }
 
 
-    private static double[] generateRow(int gridSize) {
+    public static double[] generateRow(int gridSize) {
         double[] row = new double[gridSize + 1];
         int index = 0;
-        for (int z = -gridSize / 2; z <= gridSize / 2; z++) {
-            row[index++] = z * 2;
+        for (int v = -gridSize / 2; v <= gridSize / 2; v++) {
+            row[index++] = v * 2;
         }
         return row;
     }
@@ -91,7 +112,7 @@ public class Surface {
     }
 
     public boolean isGrid() {
-        return gridSize > 0;
+        return isGrid;
     }
 
     private static class InterpY {
@@ -123,17 +144,27 @@ public class Surface {
         }
     }
 
+    public Surface toGrid() {
+        if (isGrid()) {
+            return this;
+        } else {
+            float[] heigths = interpolateGrid();
+            AtomicInteger index = new AtomicInteger();
+            return generateGrid(proposeMapSizeSquareMeters(), (x, z) -> (double) heigths[index.getAndIncrement()]);
+        }
+    }
 
     public float[] buildHeights() {
         if (isGrid()) {
             return getDirectGrid();
         } else {
-            return interpolateGrid(proposeMapSizeSquareMeters());
+            return interpolateGrid();
         }
     }
 
-    private float[] interpolateGrid(int gridSize) {
+    private float[] interpolateGrid() {
         try {
+            int gridSize = proposeMapSizeSquareMeters();
             float values[] = new float[(gridSize + 1) * (gridSize + 1)];
             double[] row = generateRow(gridSize);
             ExecutorService service = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
@@ -166,7 +197,7 @@ public class Surface {
     }
 
     public static Surface generateGrid(int gridFacetSize, BiFunction<Double, Double, Double> yFunction) {
-        Preconditions.checkArgument(((gridFacetSize & -gridFacetSize) == gridFacetSize),"Not a power of two");
+        Preconditions.checkArgument(((gridFacetSize & -gridFacetSize) == gridFacetSize), "Not a power of two: %s", gridFacetSize);
         List<Point3d> pts = new ArrayList<>();
         double[] doubles = generateRow(gridFacetSize);
         for (double z : doubles) {
@@ -174,7 +205,7 @@ public class Surface {
                 pts.add(new Point3d(x, yFunction.apply(x, z), z));
             }
         }
-        return new Surface(pts, gridFacetSize);
+        return new Surface(pts);
     }
 
     public Surface fillBounds() {
@@ -192,6 +223,43 @@ public class Surface {
             points.add(new Point3d(v, 0, minV));
             points.add(new Point3d(v, 0, maxV));
         }
-        return new Surface(points, -1);
+        return new Surface(points);
+    }
+
+    private static final String[] header = new String[]{"X", "Y", "Z"};
+    private static final CellProcessor[] processors = new CellProcessor[]{
+            new Optional(new ParseDouble()),
+            new Optional(new ParseDouble()),
+            new Optional(new ParseDouble())
+    };
+
+    public void storeToFile(String fileName) throws IOException {
+        try (CsvMapWriter csvMapWriter = new CsvMapWriter(new FileWriter(fileName), CsvPreference.EXCEL_NORTH_EUROPE_PREFERENCE)) {
+            csvMapWriter.writeHeader(header);
+            forEach(pt -> {
+                try {
+                    Map<String, Object> vals = new HashMap<>();
+                    vals.put("X", pt.getX());
+                    vals.put("Y", pt.getY());
+                    vals.put("Z", pt.getZ());
+                    csvMapWriter.write(vals, header, processors);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+
+        }
+    }
+
+    public static Surface readFromFile(String fileName) throws IOException {
+        List<Point3d> pts = new ArrayList<>();
+        try (CsvMapReader reader = new CsvMapReader(new FileReader(fileName), CsvPreference.EXCEL_NORTH_EUROPE_PREFERENCE)) {
+            reader.getHeader(true);
+            Map<String, Object> vals;
+            while ((vals = reader.read(header, processors)) != null) {
+                pts.add(new Point3d((double) vals.get("X"), (double) vals.get("Y"), (double) vals.get("Z")));
+            }
+        }
+        return new Surface(pts);
     }
 }

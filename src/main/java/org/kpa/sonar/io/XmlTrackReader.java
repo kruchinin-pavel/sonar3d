@@ -1,5 +1,6 @@
 package org.kpa.sonar.io;
 
+import org.kpa.sonar.PointCollection;
 import org.kpa.sonar.Track;
 import org.kpa.sonar.TrackPoint;
 import org.kpa.util.xml.NLSIter;
@@ -60,6 +61,16 @@ public class XmlTrackReader implements Iterable<Track>, AutoCloseable {
             track.addPoint(lon, lat, depth, temp);
         }
         return track;
+    }
+
+    public static PointCollection toCollection(String xmlFileName, int... trackIndexes) throws ParserConfigurationException, SAXException, IOException {
+        PointCollection collection;
+        collection = new PointCollection();
+        List<Track> tracks = XmlTrackReader.toList(xmlFileName);
+        for (int index : trackIndexes) {
+            collection.addAll(tracks.get(index).getPoints(.5));
+        }
+        return collection;
     }
 
     public static List<Track> toList(String xmlFileName) throws ParserConfigurationException, SAXException, IOException {

@@ -84,7 +84,7 @@ public class PointCollection {
     }
 
     public Surface getCoords() {
-        return new Surface(to3d(), -1);
+        return new Surface(to3d());
     }
 
     private double getTenzor(double maxVal) {
@@ -123,4 +123,6 @@ public class PointCollection {
         double n = Math.log(maxDistance) / Math.log(2);
         return (int) Math.pow(2, Math.ceil(n));
     }
+
+
 }
