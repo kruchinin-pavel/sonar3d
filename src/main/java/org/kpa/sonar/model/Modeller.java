@@ -1,7 +1,7 @@
 package org.kpa.sonar.model;
 
 import com.jme3.app.SimpleApplication;
-import org.kpa.openstreetmap.OpenStreetMapRest;
+import org.kpa.osm.OpenStreetMapRest;
 import org.kpa.sonar.PointCollection;
 import org.kpa.sonar.Surface;
 import org.kpa.sonar.io.XmlTrackReader;
@@ -17,7 +17,7 @@ public class Modeller extends SimpleApplication {
     private static Surface coords;
 
     public static void main(String[] args) throws IOException, SAXException, ParserConfigurationException {
-        coords = loadTracks(1);
+        coords = loadTracks(2);
 //        coords = generateSin(16);
         new Modeller().start();
     }
@@ -26,11 +26,11 @@ public class Modeller extends SimpleApplication {
         return Surface.generateGrid(gridFacetSize, (x, z) -> -10 + Math.sin(x * z));
     }
 
-    private static Surface loadTracks(int... id) throws ParserConfigurationException, SAXException, IOException {
+    public static Surface loadTracks(int... id) throws ParserConfigurationException, SAXException, IOException {
         PointCollection collection = XmlTrackReader
                 .toCollection("src/test/resources/org/kpa/sonar/Tracks.gpx", id);
-        logger.info("URL to OpenStreetMap: {}", new OpenStreetMapRest(collection).getBoundingBoxRequest());
-        return collection.getCoords().fillBounds().toGrid();
+        logger.info("URL to OpenStreetMap: {}", new OpenStreetMapRest(collection, bounds).getBoundingBoxRequest());
+        return collection.getCoords().fillBounds();
     }
 
 
@@ -38,7 +38,7 @@ public class Modeller extends SimpleApplication {
     public void simpleInitApp() {
         Boat boat = Boat.createAndAttach(assetManager, rootNode);
         boat.getSpatial().setLocalTranslation(0, 0, 0);
-        Bottom.createAndAttach(assetManager, rootNode, coords.buildHeights());
+//        Bottom.createAndAttach(assetManager, rootNode, coords.buildHeights());
         OrtosJme.createAndAttach(assetManager, rootNode);
         if (coords != null) {
             coords.forEach(val -> PointJme.createAndAttach(val, assetManager, rootNode));

@@ -1,4 +1,4 @@
-package org.kpa.openstreetmap;
+package org.kpa.osm;
 
 import org.kpa.sonar.Track;
 import org.kpa.util.xml.NLSIter;
