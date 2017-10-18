@@ -1,7 +1,8 @@
 package org.kpa.sonar.model;
 
 import com.jme3.app.SimpleApplication;
-import org.kpa.osm.OpenStreetMapRest;
+import org.kpa.osm.OsmMap;
+import org.kpa.sonar.Point;
 import org.kpa.sonar.PointCollection;
 import org.kpa.sonar.Surface;
 import org.kpa.sonar.io.XmlTrackReader;
@@ -11,6 +12,7 @@ import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+import java.util.Objects;
 
 public class Modeller extends SimpleApplication {
     private static final Logger logger = LoggerFactory.getLogger(Modeller.class);
@@ -29,8 +31,14 @@ public class Modeller extends SimpleApplication {
     public static Surface loadTracks(int... id) throws ParserConfigurationException, SAXException, IOException {
         PointCollection collection = XmlTrackReader
                 .toCollection("src/test/resources/org/kpa/sonar/Tracks.gpx", id);
-        logger.info("URL to OpenStreetMap: {}", new OpenStreetMapRest(collection, bounds).getBoundingBoxRequest());
-        return collection.getCoords().fillBounds();
+        OsmMap map = new OsmMap(collection.getSwPoint(), collection.getNePoint(), "cache");
+        map.run();
+        map.getNodes().values().stream().filter(Objects::nonNull)
+                .forEach(node -> {
+                    collection.add(new Point(node.getPosition().getLongitude(), node.getPosition().getLatitude(), 0));
+                });
+
+        return collection.getCoords();
     }
 
 
@@ -43,6 +51,6 @@ public class Modeller extends SimpleApplication {
         if (coords != null) {
             coords.forEach(val -> PointJme.createAndAttach(val, assetManager, rootNode));
         }
-        flyCam.setMoveSpeed(30);
+        flyCam.setMoveSpeed(120);
     }
 }
