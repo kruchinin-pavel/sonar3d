@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import static org.kpa.sonar.model.Modeller.loadTracks;
 
@@ -38,7 +39,7 @@ public class OsmMap {
     }
 
 
-    public String run() {
+    public OsmMap run() {
         riverBanks = filter(bounds, Relation.class,
                 rel -> rel.getTags() != null && "riverbank".equals(rel.getTags().get("waterway")));
         riverBanks.forEach(rel -> rel.getMembers().forEach(member -> ways.put(member.getRef(), null)));
@@ -64,9 +65,12 @@ public class OsmMap {
 //                }
 //            });
 //        });
-        return "";
+        return this;
     }
 
+    public List<Node> getNodeList() {
+        return  getNodes().values().stream().filter(Objects::nonNull).collect(Collectors.toList());
+    }
     public Map<Long, Node> getNodes() {
         return nodes;
     }

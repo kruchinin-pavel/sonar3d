@@ -19,7 +19,7 @@ public class Modeller extends SimpleApplication {
     private static Surface coords;
 
     public static void main(String[] args) throws IOException, SAXException, ParserConfigurationException {
-        coords = loadTracks(2);
+        coords = loadTracks(0);
 //        coords = generateSin(16);
         new Modeller().start();
     }
@@ -29,16 +29,12 @@ public class Modeller extends SimpleApplication {
     }
 
     public static Surface loadTracks(int... id) throws ParserConfigurationException, SAXException, IOException {
-        PointCollection collection = XmlTrackReader
+        PointCollection col = XmlTrackReader
                 .toCollection("src/test/resources/org/kpa/sonar/Tracks.gpx", id);
-        OsmMap map = new OsmMap(collection.getSwPoint(), collection.getNePoint(), "cache");
-        map.run();
-        map.getNodes().values().stream().filter(Objects::nonNull)
-                .forEach(node -> {
-                    collection.add(new Point(node.getPosition().getLongitude(), node.getPosition().getLatitude(), 0));
-                });
-
-        return collection.getCoords();
+//        new OsmMap(col.getSwPoint(), col.getNePoint(), "cache")
+//                .run().getNodeList().forEach(node -> col.add(new Point(node.getPosition().getLongitude(), node.getPosition().getLatitude(), 0))
+//        );
+        return col.getCoords().fillBounds();
     }
 
 
@@ -46,11 +42,12 @@ public class Modeller extends SimpleApplication {
     public void simpleInitApp() {
         Boat boat = Boat.createAndAttach(assetManager, rootNode);
         boat.getSpatial().setLocalTranslation(0, 0, 0);
-//        Bottom.createAndAttach(assetManager, rootNode, coords.buildHeights());
+        float[] mapArray = coords.buildHeights();
+        Bottom.createAndAttach(assetManager, rootNode, mapArray);
         OrtosJme.createAndAttach(assetManager, rootNode);
         if (coords != null) {
             coords.forEach(val -> PointJme.createAndAttach(val, assetManager, rootNode));
         }
-        flyCam.setMoveSpeed(120);
+        flyCam.setMoveSpeed(Math.max((int) coords.getMaxDistance() / 30, 30));
     }
 }
