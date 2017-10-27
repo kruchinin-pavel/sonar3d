@@ -9,7 +9,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.math.BigDecimal;
 
-import static org.kpa.util.xml.FileUtils.classOrPath;
+import static org.kpa.util.io.FileUtils.classOrPath;
 
 public class OpenStreetMapXml {
     private final Node rootNode;

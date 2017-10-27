@@ -7,6 +7,7 @@ import com.jme3.math.Vector2f;
 import com.jme3.scene.Node;
 import com.jme3.terrain.geomipmap.TerrainQuad;
 import com.jme3.texture.Texture;
+import org.kpa.game.Point3d;
 import org.kpa.sonar.Surface;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,13 +22,14 @@ import java.io.InputStream;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Bottom {
-    private final Material mat_terrain;
+    private final int gridSize;
+    private final float[] mapArray;
     private final TerrainQuad spatial;
+    private final AssetManager manager;
+    private final Material mat_terrain;
+    private final AtomicBoolean building = new AtomicBoolean();
     private static final Logger logger = LoggerFactory.getLogger(Bottom.class);
 
-    private final float[] mapArray;
-    private final AssetManager manager;
-    private final Surface surface;
 
     public void generateAlphaMap() {
         int faceLength = (int) Math.sqrt(mapArray.length);
@@ -58,12 +60,10 @@ public class Bottom {
     }
 
 
-    public Bottom(AssetManager assetManager, Surface surface) {
-        this.surface = surface;
+    public Bottom(AssetManager assetManager, int gridSize) {
         this.manager = assetManager;
-        this.mapArray = surface.getFlatMap();
-        int gridSize = surface.proposeMapSizeSquareMeters();
-
+        this.mapArray = new float[(gridSize + 1) * (gridSize + 1)];
+        this.gridSize = gridSize;
         /** 1. Create spatial material and load four textures into it. */
         mat_terrain = new Material(assetManager, "Common/MatDefs/Terrain/Terrain.j3md");
 
@@ -96,37 +96,30 @@ public class Bottom {
         spatial.setMaterial(mat_terrain);
         spatial.setLocalTranslation(0, 0, 0);
         spatial.setLocalScale(2f, 1f, 2f);
-
-        runInterpolation();
     }
 
-    private void runInterpolation() {
-        int gridSize = surface.proposeMapSizeSquareMeters();
-        AtomicBoolean building = new AtomicBoolean();
-        surface.buildHeights(point3d -> {
-            if (point3d == null) {
-                logger.info("Bottom build complete");
-                generateAlphaMap();
-                building.set(false);
-                return;
-            }
+    public void setPoint(Point3d point) {
+        if (point != null) {
             synchronized (spatial) {
-                spatial.setHeight(new Vector2f((float) point3d.getX(), (float) point3d.getZ()), (float) point3d.getY());
-                mapArray[Surface.toIndex(point3d, gridSize)] = (float) point3d.getY();
+                spatial.setHeight(new Vector2f((float) point.getX(), (float) point.getZ()), (float) point.getY());
+                mapArray[Surface.toIndex(point, gridSize)] = (float) point.getY();
             }
-            if (building.compareAndSet(false, true)) {
+        }
+        if (building.compareAndSet(false, true)) {
+            try {
                 generateAlphaMap();
+            } finally {
                 building.set(false);
             }
-        });
+        }
     }
 
     public TerrainQuad getSpatial() {
         return spatial;
     }
 
-    public static Bottom createAndAttach(AssetManager assetManager, Node rootNode, Surface surface) {
-        Bottom bottom = new Bottom(assetManager, surface);
+    public static Bottom createAndAttach(AssetManager assetManager, Node rootNode, int gtidSize) {
+        Bottom bottom = new Bottom(assetManager, gtidSize);
         rootNode.attachChild(bottom.getSpatial());
         return bottom;
     }

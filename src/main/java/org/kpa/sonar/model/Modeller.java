@@ -3,22 +3,61 @@ package org.kpa.sonar.model;
 import com.jme3.app.SimpleApplication;
 import org.kpa.sonar.PointCollection;
 import org.kpa.sonar.Surface;
+import org.kpa.sonar.interpolate.CachingInterpolator;
+import org.kpa.sonar.interpolate.Data;
+import org.kpa.sonar.interpolate.InterpolationCallable;
 import org.kpa.sonar.io.XmlTrackReader;
+import org.kpa.util.KeyboardEnterActor;
+import org.kpa.util.io.JsonDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+import java.nio.file.Paths;
+import java.util.List;
 
 public class Modeller extends SimpleApplication {
     private static final Logger logger = LoggerFactory.getLogger(Modeller.class);
     private static Surface coords;
 
-    public static void main(String[] args) throws IOException, SAXException, ParserConfigurationException {
-        coords = loadTracks(0);
+    public static void main(String[] args) throws Exception {
+        coords = loadTracks(2);
+//        generateAndStoreTasks();
+
 //        coords = generateSin(16);
-        new Modeller().start();
+//        new Modeller().start();
+        backgroundProcess();
+        KeyboardEnterActor.stopCurrentThreadOnEnter();
+        KeyboardEnterActor.await();
+    }
+
+    private static void backgroundProcess() throws Exception {
+        CachingInterpolator interp = new CachingInterpolator(Paths.get("interp/tasks"));
+        interp.start();
+    }
+
+    private static void generateAndStoreTasks() throws IOException {
+        int index = 0;
+        Data inputData = null;
+        Data outputData = null;
+        List<InterpolationCallable> interpolationCallables = coords.generateTaks();
+        for (InterpolationCallable task : interpolationCallables) {
+            if (inputData == null) {
+                inputData = task.getInput();
+                inputData.setFileName("interp/inputData.json");
+                JsonDto.write("interp/inputData.json", inputData);
+            }
+            if (outputData == null) {
+                outputData = task.getOutput();
+                outputData.setFileName("interp/outputData.json");
+                JsonDto.write("interp/outputData.json", outputData);
+            }
+            JsonDto.write("interp/tasks/task_" + System.currentTimeMillis() + "_" + index + ".json", task);
+            index++;
+            logger.info("Left to store {} tasks.", interpolationCallables.size() - index);
+        }
     }
 
     public static Surface generateSin(int gridFacetSize) {
@@ -39,7 +78,8 @@ public class Modeller extends SimpleApplication {
     public void simpleInitApp() {
         Boat boat = Boat.createAndAttach(assetManager, rootNode);
         boat.getSpatial().setLocalTranslation(0, 0, 0);
-        Bottom.createAndAttach(assetManager, rootNode, coords);
+        Bottom bottom = Bottom.createAndAttach(assetManager, rootNode, coords.proposeMapSizeSquareMeters());
+        coords.buildHeights(bottom::setPoint);
 
         OrtosJme.createAndAttach(assetManager, rootNode);
         if (coords != null) {

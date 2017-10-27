@@ -1,9 +1,10 @@
 package org.kpa.sonar;
 
 import com.google.common.base.Preconditions;
-import org.apache.commons.math3.analysis.interpolation.InterpolatingMicrosphere;
-import org.apache.commons.math3.random.UnitSphereRandomVectorGenerator;
+import org.apache.commons.lang3.ArrayUtils;
 import org.kpa.game.Point3d;
+import org.kpa.sonar.interpolate.Data;
+import org.kpa.sonar.interpolate.InterpolationCallable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.supercsv.cellprocessor.Optional;
@@ -127,29 +128,6 @@ public class Surface {
         return isGrid;
     }
 
-    private static class InterpY implements Runnable {
-        private final InterpolatingMicrosphere sphere =
-                new InterpolatingMicrosphere(2, 50, 1, 0, -0,
-                        new UnitSphereRandomVectorGenerator(2));
-        private final float zVal;
-        private final float xVal;
-        private final Surface coords;
-        private final Consumer<Point3d> consumer;
-
-        public InterpY(float zVal, float xVal, Surface coords, Consumer<Point3d> consumer) {
-            this.zVal = zVal;
-            this.xVal = xVal;
-            this.coords = coords;
-            this.consumer = consumer;
-        }
-
-        public void run() {
-            double[] p = new double[]{xVal, zVal};
-            double res = sphere.value(p, coords.getPts(), coords.getVals(), 1., 1.);
-            consumer.accept(new Point3d(xVal, (float) res, zVal));
-        }
-    }
-
     public Surface toGrid() {
         if (isGrid()) {
             return this;
@@ -194,16 +172,22 @@ public class Surface {
         return new float[(gridSize + 1) * (gridSize + 1)];
     }
 
+    public List<InterpolationCallable> generateTaks() {
+        List<InterpolationCallable> task = new ArrayList<>();
+        int gridSize = proposeMapSizeSquareMeters();
+        double[] row = generateRow(gridSize);
+        Data inputData = new Data(getPts(), getVals());
+        Data outputData = new Data(gridSize);
+        for (double zVal : row) {
+            task.add(InterpolationCallable.create(Collections.singletonList(zVal), Arrays.asList(ArrayUtils.toObject(row)), inputData, outputData));
+        }
+        return task;
+    }
+
     private void interpolateGrid(Consumer<Point3d> consumer) {
         try {
-            int gridSize = proposeMapSizeSquareMeters();
-            double[] row = generateRow(gridSize);
             ExecutorService service = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
-            for (double xVal : row) {
-                for (double zVal : row) {
-                    service.execute(() -> new InterpY((float) zVal, (float) xVal, this, consumer::accept).run());
-                }
-            }
+            service.invokeAll(generateTaks());
             service.shutdown();
             new Thread(() -> {
                 try {

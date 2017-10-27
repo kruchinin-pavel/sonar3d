@@ -27,4 +27,6 @@ dependencies {
     compile fileTree(dir: 'lib/jme/', include: '*.jar')
     compile 'org.jfree:jfreechart:1.0.14'
     compile 'de.westnordost:osmapi:1.7'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.8.3'
+    compile 'org.apache.camel:camel-core:2.18.3'
 }

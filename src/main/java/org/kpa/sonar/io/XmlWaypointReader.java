@@ -1,7 +1,7 @@
 package org.kpa.sonar.io;
 
 import org.kpa.sonar.Waypoint;
-import org.kpa.util.xml.FileUtils;
+import org.kpa.util.io.FileUtils;
 import org.kpa.util.xml.NLSIter;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;

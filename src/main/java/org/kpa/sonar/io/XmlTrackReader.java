@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import static org.kpa.util.xml.FileUtils.classOrPath;
+import static org.kpa.util.io.FileUtils.classOrPath;
 
 public class XmlTrackReader implements Iterable<Track>, AutoCloseable {
     public static final String TRK = "trk";
