@@ -1,8 +1,6 @@
 package org.kpa.sonar.model;
 
 import com.jme3.app.SimpleApplication;
-import org.kpa.osm.OsmMap;
-import org.kpa.sonar.Point;
 import org.kpa.sonar.PointCollection;
 import org.kpa.sonar.Surface;
 import org.kpa.sonar.io.XmlTrackReader;
@@ -12,7 +10,6 @@ import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
-import java.util.Objects;
 
 public class Modeller extends SimpleApplication {
     private static final Logger logger = LoggerFactory.getLogger(Modeller.class);
@@ -42,8 +39,8 @@ public class Modeller extends SimpleApplication {
     public void simpleInitApp() {
         Boat boat = Boat.createAndAttach(assetManager, rootNode);
         boat.getSpatial().setLocalTranslation(0, 0, 0);
-        float[] mapArray = coords.buildHeights();
-        Bottom.createAndAttach(assetManager, rootNode, mapArray);
+        Bottom.createAndAttach(assetManager, rootNode, coords);
+
         OrtosJme.createAndAttach(assetManager, rootNode);
         if (coords != null) {
             coords.forEach(val -> PointJme.createAndAttach(val, assetManager, rootNode));

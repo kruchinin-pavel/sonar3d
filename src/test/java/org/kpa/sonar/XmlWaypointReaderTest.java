@@ -13,7 +13,7 @@ public class XmlWaypointReaderTest {
 
     @Test
     public void testLoad() throws IOException, SAXException, ParserConfigurationException {
-        XmlWaypointReader reader = XmlWaypointReader.fromXmlFile("/org/kpa/sonar/Waypoints.xml");
+        XmlWaypointReader reader = XmlWaypointReader.fromXmlFile("org/kpa/sonar/Waypoints.xml");
         Iterator<Waypoint> iterator = reader.iterator();
         Waypoint obj = iterator.next();
         Assert.assertNotNull(obj);

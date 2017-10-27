@@ -20,6 +20,7 @@ import java.util.*;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
@@ -103,44 +104,49 @@ public class Surface {
         return row;
     }
 
-    public float[] getDirectGrid() {
-        float[] vals = new float[this.vals.length];
+    private static int align(double point, int gridSize) {
+        int ipt = (int) point / 2;
+        int i = gridSize / 2 + ipt;
+        Preconditions.checkArgument(i >= 0 && i <= gridSize, "Index is outside of range: gridSize=%s, value=%s", gridSize, point);
+        return i;
+    }
+
+    public static int toIndex(Point3d pt, int gridSize) {
+        return align(pt.getZ(), gridSize) * (gridSize + 1) + align(pt.getX(), gridSize);
+    }
+
+
+    public void getDirectGrid(Consumer<Point3d> consumer) {
         for (int index = 0; index < this.vals.length; index++) {
-            vals[index] = (float) this.vals[index];
+            consumer.accept(new Point3d(pts[index][0], pts[index][1], this.vals[index]));
         }
-        return vals;
+        consumer.accept(null);
     }
 
     public boolean isGrid() {
         return isGrid;
     }
 
-    private static class InterpY {
-        private final float values[];
+    private static class InterpY implements Runnable {
         private final InterpolatingMicrosphere sphere =
                 new InterpolatingMicrosphere(2, 50, 1, 0, -0,
                         new UnitSphereRandomVectorGenerator(2));
-        private final int zIndex;
         private final float zVal;
-        private double[] xRow;
+        private final float xVal;
         private final Surface coords;
+        private final Consumer<Point3d> consumer;
 
-        public InterpY(float[] values, int zIndex, float zVal, double[] xRow, Surface coords) {
-            this.values = values;
-            this.zIndex = zIndex;
+        public InterpY(float zVal, float xVal, Surface coords, Consumer<Point3d> consumer) {
             this.zVal = zVal;
-            this.xRow = xRow;
+            this.xVal = xVal;
             this.coords = coords;
+            this.consumer = consumer;
         }
 
-        public void makeYRow() {
-            int index = 0;
-            for (double xVal : xRow) {
-                double[] p = new double[]{xVal, zVal};
-                double res = sphere.value(p, coords.getPts(), coords.getVals(), 1., 1.);
-                values[xRow.length * zIndex + index] = (float) res;
-                index++;
-            }
+        public void run() {
+            double[] p = new double[]{xVal, zVal};
+            double res = sphere.value(p, coords.getPts(), coords.getVals(), 1., 1.);
+            consumer.accept(new Point3d(xVal, (float) res, zVal));
         }
     }
 
@@ -153,33 +159,61 @@ public class Surface {
         return generateGrid(proposeMapSizeSquareMeters(), (x, z) -> (double) heigths[index.getAndIncrement()]);
     }
 
-    public float[] buildHeights() {
-        return isGrid() ? getDirectGrid() : interpolateGrid();
+    public float[] interpolateGrid() {
+        float[] pts = getFlatMap();
+        int gridSize = proposeMapSizeSquareMeters();
+        CountDownLatch cdl = new CountDownLatch(1);
+        interpolateGrid(pt -> {
+            if (pt == null) {
+                cdl.countDown();
+            } else {
+                pts[toIndex(pt, gridSize)] = (float) pt.getY();
+            }
+        });
+        try {
+            cdl.await();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new RuntimeException(e);
+        }
+        return pts;
     }
 
-    private float[] interpolateGrid() {
+
+    public void buildHeights(Consumer<Point3d> consumer) {
+        if (isGrid()) {
+            getDirectGrid(consumer);
+        } else {
+            interpolateGrid(consumer);
+        }
+    }
+
+
+    public float[] getFlatMap() {
+        int gridSize = proposeMapSizeSquareMeters();
+        return new float[(gridSize + 1) * (gridSize + 1)];
+    }
+
+    private void interpolateGrid(Consumer<Point3d> consumer) {
         try {
             int gridSize = proposeMapSizeSquareMeters();
-            float values[] = new float[(gridSize + 1) * (gridSize + 1)];
             double[] row = generateRow(gridSize);
             ExecutorService service = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
-            CountDownLatch cdl = new CountDownLatch(gridSize);
-            int index = 0;
             for (double xVal : row) {
-                final int fIndex = index;
-                service.execute(() -> {
-                    try {
-                        new InterpY(values, fIndex, (float) xVal, row, this).makeYRow();
-                    } finally {
-                        cdl.countDown();
-                        logger.info("Left {} tasks.", cdl.getCount());
-                    }
-                });
-                index++;
+                for (double zVal : row) {
+                    service.execute(() -> new InterpY((float) zVal, (float) xVal, this, consumer::accept).run());
+                }
             }
             service.shutdown();
-            cdl.await();
-            return values;
+            new Thread(() -> {
+                try {
+                    service.awaitTermination(10, TimeUnit.MINUTES);
+                    consumer.accept(null);
+                } catch (InterruptedException e) {
+                    logger.warn("Interrupted.");
+                    Thread.currentThread().interrupt();
+                }
+            }).start();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
