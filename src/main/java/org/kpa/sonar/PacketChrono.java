@@ -1,17 +1,16 @@
 package org.kpa.sonar;
 
-import org.apache.commons.math3.util.MathUtils;
 import org.apache.commons.math3.util.Precision;
 
 public class PacketChrono {
     private final long arrivalTime;
     private final long firstPacketArrivalTime;
-    private final long packetNo;
+    private final long no;
 
-    public PacketChrono(long arrivalTime, long firstPacketArrivalTime, long packetNo) {
+    public PacketChrono(long arrivalTime, long firstPacketArrivalTime, long no) {
         this.arrivalTime = arrivalTime;
         this.firstPacketArrivalTime = firstPacketArrivalTime;
-        this.packetNo = packetNo;
+        this.no = no;
     }
 
     public long getArrivalTime() {
@@ -26,14 +25,14 @@ public class PacketChrono {
         return (arrivalTime - firstPacketArrivalTime) * 1e-6;
     }
 
-    public long getPacketNo() {
-        return packetNo;
+    public long getNo() {
+        return no;
     }
 
     @Override
     public String toString() {
         return "PacketChrono{" +
-                "packetNo=" + packetNo +
+                "packetNo=" + no +
                 ", sec.=" + Precision.round(secondsSinceFirstPacket(), 3) +
                 '}';
     }

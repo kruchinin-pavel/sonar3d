@@ -1,4 +1,6 @@
-package org.kpa.sonar.wifi;
+package org.kpa.sonar.draw;
+
+import org.kpa.sonar.wifi.SonarPacket;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
