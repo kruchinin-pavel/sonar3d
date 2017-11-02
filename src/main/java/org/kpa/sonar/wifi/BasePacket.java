@@ -20,6 +20,11 @@ public class BasePacket {
         this.data = data;
         this.type = type;
         Preconditions.checkArgument(Bytes.indexOf(data, bodyMark) == 12, "Broken body packet: %s", this);
+        Preconditions.checkArgument(data.length == getSize(), "Broken packet= buffer length is not equal to packetSize");
+    }
+
+    public int getSize() {
+        return getInt(1, false);
     }
 
 
@@ -65,15 +70,6 @@ public class BasePacket {
             sb.append(chars[i]);
         }
         return sb.toString();
-    }
-
-    /**
-     * Returns packet size in bytes
-     *
-     * @return
-     */
-    public int getSize() {
-        return data.length;
     }
 
     protected int getInt(int no, boolean body) {

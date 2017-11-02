@@ -10,6 +10,7 @@ import io.pkts.protocol.Protocol;
 import org.junit.Test;
 import org.kpa.sonar.wifi.BasePacket;
 import org.kpa.sonar.wifi.PacketType;
+import org.kpa.sonar.wifi.SonarImage;
 import org.kpa.sonar.wifi.SonarPacket;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +19,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class TestWifiTraffic {
@@ -32,10 +32,13 @@ public class TestWifiTraffic {
 
     @Test
     public void doTestTraffic() throws IOException {
+
+        SonarImage image = new SonarImage();
         final Pcap pcap = Pcap.openStream("src/test/resources/org/kpa/sonar/raymarine.2017.10.28.dmp");
-        AtomicInteger counter = new AtomicInteger();
         AtomicLong firstArrivalTime = new AtomicLong();
         AtomicLong packetCounter = new AtomicLong();
+        Set<Integer> psDepthSet = new LinkedHashSet<>();
+
         pcap.loop(packet -> {
             if (firstArrivalTime.get() == 0) {
                 firstArrivalTime.set(packet.getArrivalTime());
@@ -57,19 +60,29 @@ public class TestWifiTraffic {
             }
             BasePacket rPacket = PacketType.getPacket(buffer.getArray());
             if (!(rPacket instanceof SonarPacket)) return true;
+            SonarPacket sp = (SonarPacket) rPacket;
+//            if (!sp.isSonar()) return true;
+
             rPacket.setChrono(new PacketChrono(packet.getArrivalTime(), firstArrivalTime.get(), packetCounter.get()));
             String hexStr = rPacket.toHexStr();
             packetClasses.put(rPacket.getSize(), hexStr);
+            image.addPacket(sp);
+            psDepthSet.add(sp.getPxDepth());
+
+//            if (sp.getPxDepth() >= sp.getSize()) {
             logger.info("Packet {} ", rPacket);
+//            }
+
 //            if (!hexStr.startsWith(firstPacketType)) return true;
 //            logger.info("UDP ({} bytes at {}): {}", data.length, packet.getArrivalTime(), hexStr);
-            packets.add(rPacket.getChrono().getPacketNo() + ":" + rPacket.getChrono().secondsSinceFirstPacket() + ":" + hexStr + ":LLL");
+            packets.add(((SonarPacket) rPacket).getPxOffset() + ":" + hexStr + ":LLL");
 //            return counter.incrementAndGet() < 10;
             return true;
         });
 //        Collections.sort(packets);
 
 
+        image.store("sonar_image.png");
         Files.write(Paths.get("out.txt"), packets);
         packetClasses.keySet().forEach(key -> {
             List<String> values = new ArrayList<>(packetClasses.get(key));
@@ -81,6 +94,8 @@ public class TestWifiTraffic {
         });
 
         prefixes.forEach(System.out::println);
+
+        logger.info("pxDepths={}", psDepthSet);
     }
 
     public static String findCommonStart(List<String> packets) {

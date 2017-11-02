@@ -7,6 +7,19 @@ repositories {
     mavenCentral()
     jcenter()
     maven { url "http://dl.bintray.com/jmonkeyengine/org.jmonkeyengine" }
+    maven {
+        name 'Jzy3d Snapshots'
+        url 'http://maven.jzy3d.org/snapshots'
+    }
+    maven {
+        name 'Jzy3d Releases'
+        url 'http://maven.jzy3d.org/releases'
+    }
+    maven {
+        name "Sonatype snapshots"
+        url "http://oss.sonatype.org/content/repositories/snapshots/"
+    }
+
 }
 
 sourceCompatibility = 1.8
@@ -32,4 +45,5 @@ dependencies {
     compile 'org.apache.camel:camel-core:2.18.3'
     compile 'io.pkts:pkts-streams:3.0.1'
     compile 'io.pkts:pkts-core:3.0.1'
+    compile 'org.jzy3d:jzy3d-api:1.0.2-SNAPSHOT'
 }
