@@ -7,10 +7,12 @@ import io.pkts.Pcap;
 import io.pkts.buffer.Buffer;
 import io.pkts.packet.UDPPacket;
 import io.pkts.protocol.Protocol;
+import org.apache.commons.lang3.ArrayUtils;
 import org.junit.Test;
 import org.kpa.sonar.wifi.BasePacket;
 import org.kpa.sonar.wifi.PacketType;
 import org.kpa.sonar.draw.SonarImage;
+import org.kpa.sonar.wifi.ScalePacket;
 import org.kpa.sonar.wifi.SonarPacket;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,29 +28,30 @@ import java.util.concurrent.atomic.AtomicReference;
 public class TestWifiTraffic {
     private static final Logger logger = LoggerFactory.getLogger(TestWifiTraffic.class);
     private static final Joiner joiner = Joiner.on(":");
+    public static final long PRINT_MARGIN_PACKETS_COUNT = 100L;
 
     List<String> packets = new ArrayList<>();
-    Multimap<Integer, String> packetClasses = TreeMultimap.create();
-    Set<String> prefixes = new TreeSet<>();
     SonarImage image = new SonarImage();
+    Iterator<Long> points = Arrays.asList(new Long[]{13962L, 15324L, 15980L, 23257L, 23865L, 25425L, 26378L, 26880L}).iterator();
 
     @Test
     public void doTestTraffic() throws IOException {
-
         final Pcap pcap = Pcap.openStream("src/test/resources/org/kpa/sonar/raymarine.2017.10.28.dmp");
         AtomicLong firstArrivalTime = new AtomicLong();
         AtomicLong packetCounter = new AtomicLong();
         AtomicReference<SonarPacket> lastSonarPacketRef = new AtomicReference<>();
         AtomicInteger maxPaketSize = new AtomicInteger();
-        pcap.loop(packet -> {
+        LinkedHashSet<Long> pointsOfChange = new LinkedHashSet<>();
+        AtomicLong currPoint = new AtomicLong(points.next());
+        pcap.loop(pCapPacket -> {
             if (firstArrivalTime.get() == 0) {
-                firstArrivalTime.set(packet.getArrivalTime());
+                firstArrivalTime.set(pCapPacket.getArrivalTime());
             }
             packetCounter.incrementAndGet();
-            if (!packet.hasProtocol(Protocol.UDP)) {
+            if (!pCapPacket.hasProtocol(Protocol.UDP)) {
                 return true;
             }
-            UDPPacket udpPacket = (UDPPacket) packet.getPacket(Protocol.UDP);
+            UDPPacket udpPacket = (UDPPacket) pCapPacket.getPacket(Protocol.UDP);
             if (udpPacket.getDestinationPort() != 3201) {
                 return true;
             }
@@ -59,48 +62,50 @@ public class TestWifiTraffic {
             if (buffer == null) {
                 return true;
             }
-            BasePacket basePacket = PacketType.getPacket(buffer.getArray());
-            basePacket.setChrono(new PacketChrono(packet.getArrivalTime(), firstArrivalTime.get(), packetCounter.get()));
-            if (basePacket instanceof SonarPacket) {
-                SonarPacket sonarPacket = (SonarPacket) basePacket;
+
+            BasePacket packet = PacketType.getPacket(buffer.getArray());
+            packet.setChrono(new PacketChrono(pCapPacket.getArrivalTime(), firstArrivalTime.get(), packetCounter.get()));
+            if (packet instanceof SonarPacket) {
+                SonarPacket sonarPacket = (SonarPacket) packet;
                 image.addPacket(sonarPacket);
                 if (lastSonarPacketRef.get() != null) {
                     SonarPacket lastSonarPacker = lastSonarPacketRef.get();
                     if (lastSonarPacker.getPxDepth() != sonarPacket.getPxDepth()) {
-                        logger.info("at packet #{} depth has changed", sonarPacket.getChrono().getNo());
+                        pointsOfChange.add(sonarPacket.getChrono().getNo());
                     }
                 }
                 lastSonarPacketRef.set(sonarPacket);
+
+            } else if (packet instanceof ScalePacket) {
+//                logger.info("Got scale pCapPacket: {}", packet);
+                image.addPacket((ScalePacket) packet);
             } else {
-                return true;
+                if (currPoint.get() + PRINT_MARGIN_PACKETS_COUNT < packet.getChrono().getNo()) {
+                    if (points.hasNext()) {
+                        currPoint.set(points.next());
+                    }
+                    return true;
+                }
+                if (currPoint.get() - PRINT_MARGIN_PACKETS_COUNT > packet.getChrono().getNo()) {
+                    return true;
+                }
             }
+            String hexStr = packet.toHexStr();
 
-            String hexStr = basePacket.toHexStr();
+            maxPaketSize.set(Math.max(maxPaketSize.get(), packet.getSize()));
 
-            maxPaketSize.set(Math.max(maxPaketSize.get(), basePacket.getSize()));
-            packetClasses.put(basePacket.getSize(), hexStr);
-//            logger.info("Packet {} ", basePacket);
-            packets.add(basePacket.getChrono().getNo() + ":" + ((SonarPacket) basePacket).getPxOffset() + ":" + hexStr + ":LLL");
+            packets.add(packet.getChrono().getNo() + ":" + hexStr + ":LLL");
+//            logger.info("Packet {}", packet);
             return true;
         });
 
-        StringBuilder sb = new StringBuilder("no:offs");
+        StringBuilder sb = new StringBuilder("no");
         for (int i = 0; i < maxPaketSize.get(); i++) sb.append(":").append(i);
         packets.add(0, sb.toString());
 
         image.store("sonar_image.png");
         Files.write(Paths.get("out.txt"), packets);
-        packetClasses.keySet().forEach(key -> {
-            List<String> values = new ArrayList<>(packetClasses.get(key));
-            Collections.sort(values);
-            String value = values.get(0);
-            String prefix = findCommonStart(values);
-            System.out.println("Length: " + key + ". count=" + values.size() + ". Common prefix: " + prefix);
-            if (prefix != null && values.size() > 1) prefixes.add(prefix);
-        });
-
-        prefixes.forEach(System.out::println);
-
+//        logger.info("Points of changing zoom: {}", pointsOfChange);
     }
 
     public static String findCommonStart(List<String> packets) {

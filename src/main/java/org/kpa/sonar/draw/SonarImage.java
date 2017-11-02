@@ -1,5 +1,6 @@
 package org.kpa.sonar.draw;
 
+import org.kpa.sonar.wifi.ScalePacket;
 import org.kpa.sonar.wifi.SonarPacket;
 
 import javax.imageio.ImageIO;
@@ -15,6 +16,9 @@ public class SonarImage {
     private BufferedImage off_image;
     private int sonarColumn = 0;
     private int downVisionColumn = 0;
+    private int initialScale = -1;
+    private int scale = -1;
+    private double currentScale = 1.;
 
     public SonarImage() {
         height = 2000;
@@ -22,6 +26,18 @@ public class SonarImage {
         g2 = off_image.createGraphics();
         g2.setBackground(Color.black);
     }
+
+    public void addPacket(ScalePacket packet) {
+        if (scale == -1) {
+            initialScale = packet.scale();
+        }
+        if (scale != packet.scale()) {
+            System.out.println("new scale " + packet);
+        }
+        scale = packet.scale();
+        currentScale = ((double) scale) / initialScale;
+    }
+
 
     public void addPacket(SonarPacket packet) {
         if (packet.isSonar()) {
@@ -39,7 +55,6 @@ public class SonarImage {
             if (y > maxHeight) {
                 break;
             }
-
         }
     }
 

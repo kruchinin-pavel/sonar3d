@@ -20,7 +20,7 @@ public enum PacketType {
     Type09("09:01:27:00", Type09Packet::new),
     Type0A("0a:01:27:00", Type0APacket::new),
     Type0D("0d:01:27:00", Type0DPacket::new),
-    DownVision("0b:01:27:00", DownVisionPacket::new); // Need to clarify if this is a temperature. It reapeats almost every 1-2 seconds
+    DownVision("0b:01:27:00", ScalePacket::new); // Need to clarify if this is a temperature. It reapeats almost every 1-2 seconds
 
 
     private final byte[] prefix;

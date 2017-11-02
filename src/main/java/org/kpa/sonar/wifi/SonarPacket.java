@@ -11,7 +11,7 @@ public class SonarPacket extends BasePacket {
     public SonarPacket(byte[] data, PacketType type) {
         super(data, type);
     }
-    private static final ColorMapper sonarMapper = new ColorMapper(new ColorMapRainbow(), 0, 255, new org.jzy3d.colors.Color(1, 1, 1, .5f));
+   private static final ColorMapper sonarMapper = new ColorMapper(new ColorMapRainbow(), 0, 255, new org.jzy3d.colors.Color(1, 1, 1, .5f));
     private static final ColorMapper downVisionMapper = new ColorMapper(new ColorMapGrayscale(), 0, 255, new org.jzy3d.colors.Color(1, 1, 1, .5f));
 
     @Override
@@ -25,7 +25,7 @@ public class SonarPacket extends BasePacket {
     }
 
     public int getPacketNo() {
-        return getByte(33, false);
+        return getByte(33);
     }
 
     private int pxDepth = -1;
@@ -44,11 +44,11 @@ public class SonarPacket extends BasePacket {
 
 
     public boolean isSonar() {
-        return getByte(20, true) == 0;
+        return getByte(36) == 0;
     }
 
     public boolean isDownvision() {
-        return getByte(20, true) == 1;
+        return getByte(36) == 1;
     }
 
     public int getPxOffset() {
@@ -60,7 +60,7 @@ public class SonarPacket extends BasePacket {
         ColorMapper mapper = isSonar() ? sonarMapper : downVisionMapper;
         java.util.List<Color> pixels = new ArrayList<>();
         for (int y = getPxOffset(); y < getData().length; ) {
-            org.jzy3d.colors.Color jzyColor = mapper.getColor(getByte(y++, false));
+            org.jzy3d.colors.Color jzyColor = mapper.getColor(getByte(y++));
             pixels.add(new Color(jzyColor.r, jzyColor.g, jzyColor.b));
         }
         return pixels;

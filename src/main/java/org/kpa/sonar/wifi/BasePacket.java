@@ -80,8 +80,8 @@ public class BasePacket {
         return ByteBuffer.wrap(getData(), offset, 4).order(java.nio.ByteOrder.LITTLE_ENDIAN).getInt();
     }
 
-    public int getByte(int offset, boolean body) {
-        return Byte.toUnsignedInt(getData()[offset + (body ? 16 : 0)]);
+    public int getByte(int offset) {
+        return Byte.toUnsignedInt(getData()[offset]);
     }
 
 }
