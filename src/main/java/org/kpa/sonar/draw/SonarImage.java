@@ -1,68 +1,63 @@
 package org.kpa.sonar.draw;
 
+import com.google.common.base.Preconditions;
 import org.kpa.sonar.wifi.ScalePacket;
 import org.kpa.sonar.wifi.SonarPacket;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SonarImage {
+    private final Graphics2D g2;
+    private List<SonarLine> pixels = new ArrayList<>();
+    private final int yFrom;
+    private final int yTo;
+    private final int xFrom;
+    private final int xTo;
+    private int lastX;
+    private int lastDepth;
 
-    public static final int WIDTH = 3300;
-    private int height = -1;
-    private Graphics2D g2;
-    private BufferedImage off_image;
-    private int sonarColumn = 0;
-    private int downVisionColumn = 0;
-    private int initialScale = -1;
-    private int scale = -1;
-    private double currentScale = 1.;
-
-    public SonarImage() {
-        height = 2000;
-        off_image = new BufferedImage(WIDTH, height, BufferedImage.TYPE_INT_ARGB);
-        g2 = off_image.createGraphics();
-        g2.setBackground(Color.black);
+    public SonarImage(Graphics2D g2, int xFrom, int xTo, int yFrom, int yTo) {
+        Preconditions.checkArgument(yFrom < yTo);
+        Preconditions.checkArgument(xFrom < xTo);
+        this.g2 = g2;
+        this.yFrom = yFrom;
+        this.yTo = yTo;
+        this.xFrom = xFrom;
+        this.xTo = xTo;
+        lastX = xFrom;
     }
 
     public void addPacket(ScalePacket packet) {
-        if (scale == -1) {
-            initialScale = packet.scale();
-        }
-        if (scale != packet.scale()) {
+        if (lastDepth != packet.scale()) {
             System.out.println("new scale " + packet);
         }
-        scale = packet.scale();
-        currentScale = ((double) scale) / initialScale;
+        lastDepth = packet.scale();
     }
 
 
     public void addPacket(SonarPacket packet) {
-        if (packet.isSonar()) {
-            draw(packet, 0, 1000, sonarColumn++);
-        } else {
-            draw(packet, 1000, 2000, downVisionColumn++);
-        }
+        draw(packet, lastX++);
     }
 
-    private void draw(SonarPacket packet, int y, int maxHeight, int column) {
-        if (column >= WIDTH) return;
-        for (Color color : packet.getPixels()) {
+    public void redraw() {
+        g2.fillRect(xFrom, yFrom, xTo - xFrom + 1, yTo - yFrom + 1);
+    }
+
+    private void draw(SonarPacket packet, int column) {
+        int y = yFrom;
+        if (column >= xTo) return;
+
+        SonarLine line = new SonarLine(packet.getPixels(), lastDepth);
+
+        for (Color color : line.getPixels()) {
             g2.setColor(color);
             g2.fillRect(column, y++, 1, 1);
-            if (y > maxHeight) {
+            if (y > yTo) {
                 break;
             }
         }
     }
 
-    public void store(String fileName) {
-        try {
-            ImageIO.write(off_image, "png", new java.io.File(fileName));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 }

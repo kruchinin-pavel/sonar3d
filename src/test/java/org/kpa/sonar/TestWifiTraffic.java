@@ -1,17 +1,14 @@
 package org.kpa.sonar;
 
 import com.google.common.base.Joiner;
-import com.google.common.collect.Multimap;
-import com.google.common.collect.TreeMultimap;
 import io.pkts.Pcap;
 import io.pkts.buffer.Buffer;
 import io.pkts.packet.UDPPacket;
 import io.pkts.protocol.Protocol;
-import org.apache.commons.lang3.ArrayUtils;
 import org.junit.Test;
+import org.kpa.sonar.draw.SonarCompoundImage;
 import org.kpa.sonar.wifi.BasePacket;
 import org.kpa.sonar.wifi.PacketType;
-import org.kpa.sonar.draw.SonarImage;
 import org.kpa.sonar.wifi.ScalePacket;
 import org.kpa.sonar.wifi.SonarPacket;
 import org.slf4j.Logger;
@@ -31,7 +28,7 @@ public class TestWifiTraffic {
     public static final long PRINT_MARGIN_PACKETS_COUNT = 100L;
 
     List<String> packets = new ArrayList<>();
-    SonarImage image = new SonarImage();
+    SonarCompoundImage image = new SonarCompoundImage();
     Iterator<Long> points = Arrays.asList(new Long[]{13962L, 15324L, 15980L, 23257L, 23865L, 25425L, 26378L, 26880L}).iterator();
 
     @Test
@@ -122,7 +119,8 @@ public class TestWifiTraffic {
             currLength = (max + min) / 2;
         }
         return isEqual(packets, currLength) ? packets.get(0).substring(0, currLength) : null;
-    }
+    }import org.kpa.sonar.draw.SonarImage;
+
 
     private static boolean isEqual(List<String> packets, int length) {
         String prefix = null;
