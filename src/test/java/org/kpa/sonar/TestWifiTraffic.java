@@ -74,7 +74,7 @@ public class TestWifiTraffic {
                 lastSonarPacketRef.set(sonarPacket);
 
             } else if (packet instanceof ScalePacket) {
-//                logger.info("Got scale pCapPacket: {}", packet);
+//                logger.info("Got getDepth pCapPacket: {}", packet);
                 image.addPacket((ScalePacket) packet);
             } else {
                 if (currPoint.get() + PRINT_MARGIN_PACKETS_COUNT < packet.getChrono().getNo()) {
@@ -119,7 +119,8 @@ public class TestWifiTraffic {
             currLength = (max + min) / 2;
         }
         return isEqual(packets, currLength) ? packets.get(0).substring(0, currLength) : null;
-    }import org.kpa.sonar.draw.SonarImage;
+    }
+
 
 
     private static boolean isEqual(List<String> packets, int length) {

@@ -1,7 +1,5 @@
 package org.kpa.sonar.wifi;
 
-import com.google.common.base.Preconditions;
-
 public class ScalePacket extends BasePacket {
     public ScalePacket(byte[] data, PacketType type) {
         super(data, type);
@@ -15,12 +13,12 @@ public class ScalePacket extends BasePacket {
     public String toString() {
         return "StatusPacket{" +
                 "#=" + getPacketNo() +
-                ", scale=" + scale() +
+                ", getDepth=" + getDepth() +
                 ", toHexStr='" + toHexStr() + '\'' +
                 '}';
     }
 
-    public int scale() {
+    public int getDepth() {
         return getIntByOffset(108);
     }
 

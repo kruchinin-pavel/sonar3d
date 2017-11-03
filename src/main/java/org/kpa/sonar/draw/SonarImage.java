@@ -16,7 +16,8 @@ public class SonarImage {
     private final int xFrom;
     private final int xTo;
     private int lastX;
-    private int lastDepth;
+    private int viewDepth = -1;
+    private int lastDepth = -1;
 
     public SonarImage(Graphics2D g2, int xFrom, int xTo, int yFrom, int yTo) {
         Preconditions.checkArgument(yFrom < yTo);
@@ -30,34 +31,52 @@ public class SonarImage {
     }
 
     public void addPacket(ScalePacket packet) {
-        if (lastDepth != packet.scale()) {
-            System.out.println("new scale " + packet);
+        if (viewDepth == -1) {
+            viewDepth = packet.getDepth();
         }
-        lastDepth = packet.scale();
+        lastDepth = packet.getDepth();
+        if (viewDepth < lastDepth) {
+            viewDepth = lastDepth;
+            redraw();
+        }
     }
 
 
     public void addPacket(SonarPacket packet) {
-        draw(packet, lastX++);
+        SonarLine line = new SonarLine(packet.getPixels(), lastDepth);
+        pixels.add(line);
+        draw(line, lastX++);
     }
 
     public void redraw() {
-        g2.fillRect(xFrom, yFrom, xTo - xFrom + 1, yTo - yFrom + 1);
+        g2.setColor(Color.black);
+        g2.fillRect(xFrom, yFrom, xTo - xFrom + 1, imageHeight());
+        lastX = xFrom;
+        for (SonarLine line : pixels) {
+            draw(line, lastX++);
+        }
     }
 
-    private void draw(SonarPacket packet, int column) {
-        int y = yFrom;
+    private void draw(SonarLine line, int column) {
         if (column >= xTo) return;
-
-        SonarLine line = new SonarLine(packet.getPixels(), lastDepth);
-
+        int heightPixels = (int) (imageHeight() * ((double) line.getDepth()) / viewDepth);
+        int pixelCount = line.getPixels().size();
+        int pixelIndex = 0;
+        int yDrawn = 0;
         for (Color color : line.getPixels()) {
             g2.setColor(color);
-            g2.fillRect(column, y++, 1, 1);
-            if (y > yTo) {
-                break;
+            int y = (int) ((double) pixelIndex / pixelCount * heightPixels);
+            if (yDrawn < y) {
+                g2.fillRect(column, yFrom + yDrawn, 1, y - yDrawn + 1);
+                yDrawn = y;
             }
+            pixelIndex++;
+            Preconditions.checkArgument(y <= yTo);
         }
+    }
+
+    private int imageHeight() {
+        return this.yTo - yFrom + 1;
     }
 
 }
