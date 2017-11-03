@@ -3,6 +3,7 @@ package org.kpa.sonar;
 import com.google.common.base.Joiner;
 import io.pkts.Pcap;
 import io.pkts.buffer.Buffer;
+import io.pkts.packet.Packet;
 import io.pkts.packet.UDPPacket;
 import io.pkts.protocol.Protocol;
 import org.junit.Test;
@@ -40,7 +41,7 @@ public class TestWifiTraffic {
         LinkedHashSet<Long> pointsOfChange = new LinkedHashSet<>();
         AtomicLong currPoint = new AtomicLong(points.next());
         AtomicInteger lastDepth = new AtomicInteger(-1);
-        pcap.loop(pCapPacket -> {
+        pcap.loop((Packet pCapPacket) -> {
             if (firstArrivalTime.get() == 0) {
                 firstArrivalTime.set(pCapPacket.getArrivalTime());
             }
@@ -81,12 +82,16 @@ public class TestWifiTraffic {
                 } else if (packet instanceof CurrDepthPacket) {
                     CurrDepthPacket currDepthPacket = (CurrDepthPacket) packet;
                     lastDepth.set(currDepthPacket.getDepth());
-                } else if (packet instanceof LocationPacket) {
-                    LocationPacket lp = (LocationPacket) packet;
-                    logger.info("Location: {}", packet);
+//                } else if (packet instanceof LocationPacket) {
+//                    LocationPacket lp = (LocationPacket) packet;
+//                    logger.info("Location: {}", packet);
                 }
             }
-            if (!shouldntPrint(currPoint, packet)) push(packet);
+            if (shouldntPrint(currPoint, packet)) return true;
+            if (packet instanceof LocationPacket) {
+                logger.info("Location. Longitueu found at: {}. Packet= {}", packet, packet.lookupDouble(30, 50));
+            }
+            push(packet);
             return true;
         });
 

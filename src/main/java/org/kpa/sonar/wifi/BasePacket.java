@@ -88,4 +88,14 @@ public class BasePacket {
         return Byte.toUnsignedInt(getData()[offset]);
     }
 
+    public int lookupDouble(double min, double max) {
+        for (int i = 0; i < data.length - 8; i++) {
+            double val = getBufAt(i).getFloat();
+            if (min < val && val < max) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
 }
