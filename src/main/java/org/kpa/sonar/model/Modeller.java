@@ -7,7 +7,6 @@ import org.kpa.sonar.interpolate.CachingInterpolator;
 import org.kpa.sonar.interpolate.Data;
 import org.kpa.sonar.interpolate.InterpolationCallable;
 import org.kpa.sonar.io.XmlTrackReader;
-import org.kpa.util.KeyboardEnterActor;
 import org.kpa.util.io.JsonDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,14 +22,14 @@ public class Modeller extends SimpleApplication {
     private static Surface coords;
 
     public static void main(String[] args) throws Exception {
-        coords = loadTracks(2);
-//        generateAndStoreTasks();
+        coords = loadTracks(1);
+        generateAndStoreTasks();
 
 //        coords = generateSin(16);
-//        new Modeller().start();
         backgroundProcess();
-        KeyboardEnterActor.stopCurrentThreadOnEnter();
-        KeyboardEnterActor.await();
+        new Modeller().start();
+//        KeyboardEnterActor.stopCurrentThreadOnEnter();
+//        KeyboardEnterActor.await();
     }
 
     private static void backgroundProcess() throws Exception {

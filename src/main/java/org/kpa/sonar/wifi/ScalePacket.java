@@ -11,15 +11,24 @@ public class ScalePacket extends BasePacket {
 
     @Override
     public String toString() {
-        return "StatusPacket{" +
-                "#=" + getPacketNo() +
-                ", getDepth=" + getDepth() +
+        return "ScalePacket{" +
+                "chrono=" + getChrono() +
+                ", getViewDepth=" + getViewDepth() +
+                ", getCurDepth=" + getCurDepth() +
                 ", toHexStr='" + toHexStr() + '\'' +
                 '}';
     }
 
-    public int getDepth() {
+    public int getViewDepth() {
         return getIntByOffset(108);
+    }
+
+    public int getDepth() {
+        return getIntByOffset(98);
+    }
+
+    public int getCurDepth() {
+        return getIntByOffset(103);
     }
 
     public boolean isSonar() {

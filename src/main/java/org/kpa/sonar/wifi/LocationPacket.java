@@ -2,8 +2,8 @@ package org.kpa.sonar.wifi;
 
 import com.google.common.base.Preconditions;
 
-public class StatusPacket extends BasePacket {
-    public StatusPacket(byte[] data, PacketType type) {
+public class LocationPacket extends BasePacket {
+    public LocationPacket(byte[] data, PacketType type) {
         super(data, type);
     }
 
@@ -14,7 +14,7 @@ public class StatusPacket extends BasePacket {
 
     @Override
     public String toString() {
-        return "StatusPacket{" +
+        return "LocationPacket{" +
                 "#=" + getPacketNumber() +
                 ", toHexStr='" + toHexStr() + '\'' +
                 '}';

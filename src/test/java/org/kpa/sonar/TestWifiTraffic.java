@@ -7,10 +7,7 @@ import io.pkts.packet.UDPPacket;
 import io.pkts.protocol.Protocol;
 import org.junit.Test;
 import org.kpa.sonar.draw.SonarCompoundImage;
-import org.kpa.sonar.wifi.BasePacket;
-import org.kpa.sonar.wifi.PacketType;
-import org.kpa.sonar.wifi.ScalePacket;
-import org.kpa.sonar.wifi.SonarPacket;
+import org.kpa.sonar.wifi.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,6 +27,8 @@ public class TestWifiTraffic {
     List<String> packets = new ArrayList<>();
     SonarCompoundImage image = new SonarCompoundImage();
     Iterator<Long> points = Arrays.asList(new Long[]{13962L, 15324L, 15980L, 23257L, 23865L, 25425L, 26378L, 26880L}).iterator();
+    AtomicInteger maxPaketSize = new AtomicInteger();
+    Map<String, Integer> counter = new HashMap<>();
 
     @Test
     public void doTestTraffic() throws IOException {
@@ -37,9 +36,10 @@ public class TestWifiTraffic {
         AtomicLong firstArrivalTime = new AtomicLong();
         AtomicLong packetCounter = new AtomicLong();
         AtomicReference<SonarPacket> lastSonarPacketRef = new AtomicReference<>();
-        AtomicInteger maxPaketSize = new AtomicInteger();
+
         LinkedHashSet<Long> pointsOfChange = new LinkedHashSet<>();
         AtomicLong currPoint = new AtomicLong(points.next());
+        AtomicInteger lastDepth = new AtomicInteger(-1);
         pcap.loop(pCapPacket -> {
             if (firstArrivalTime.get() == 0) {
                 firstArrivalTime.set(pCapPacket.getArrivalTime());
@@ -61,6 +61,8 @@ public class TestWifiTraffic {
             }
 
             BasePacket packet = PacketType.getPacket(buffer.getArray());
+            counter.put(packet.getClass().getSimpleName(), counter.computeIfAbsent(packet.getClass().getSimpleName(), key -> 0) + 1);
+
             packet.setChrono(new PacketChrono(pCapPacket.getArrivalTime(), firstArrivalTime.get(), packetCounter.get()));
             if (packet instanceof SonarPacket) {
                 SonarPacket sonarPacket = (SonarPacket) packet;
@@ -72,27 +74,19 @@ public class TestWifiTraffic {
                     }
                 }
                 lastSonarPacketRef.set(sonarPacket);
-
-            } else if (packet instanceof ScalePacket) {
-//                logger.info("Got getDepth pCapPacket: {}", packet);
-                image.addPacket((ScalePacket) packet);
             } else {
-                if (currPoint.get() + PRINT_MARGIN_PACKETS_COUNT < packet.getChrono().getNo()) {
-                    if (points.hasNext()) {
-                        currPoint.set(points.next());
-                    }
-                    return true;
-                }
-                if (currPoint.get() - PRINT_MARGIN_PACKETS_COUNT > packet.getChrono().getNo()) {
-                    return true;
+                if (packet instanceof ScalePacket) {
+                    ScalePacket sPack = (ScalePacket) packet;
+                    image.addPacket(sPack);
+                } else if (packet instanceof CurrDepthPacket) {
+                    CurrDepthPacket currDepthPacket = (CurrDepthPacket) packet;
+                    lastDepth.set(currDepthPacket.getDepth());
+                } else if (packet instanceof LocationPacket) {
+                    LocationPacket lp = (LocationPacket) packet;
+                    logger.info("Location: {}", packet);
                 }
             }
-            String hexStr = packet.toHexStr();
-
-            maxPaketSize.set(Math.max(maxPaketSize.get(), packet.getSize()));
-
-            packets.add(packet.getChrono().getNo() + ":" + hexStr + ":LLL");
-//            logger.info("Packet {}", packet);
+            if (!shouldntPrint(currPoint, packet)) push(packet);
             return true;
         });
 
@@ -102,7 +96,27 @@ public class TestWifiTraffic {
 
         image.store("sonar_image.png");
         Files.write(Paths.get("out.txt"), packets);
-//        logger.info("Points of changing zoom: {}", pointsOfChange);
+        logger.info("Most frequent messages: {}", counter);
+    }
+
+    private void push(BasePacket packet) {
+        String hexStr = packet.toHexStr();
+        maxPaketSize.set(Math.max(maxPaketSize.get(), packet.getSize()));
+        packets.add(packet.getChrono().getNo() + ":" + hexStr + ":LLL");
+    }
+
+
+    private boolean shouldntPrint(AtomicLong currPoint, BasePacket packet) {
+        if (currPoint.get() + PRINT_MARGIN_PACKETS_COUNT < packet.getChrono().getNo()) {
+            if (points.hasNext()) {
+                currPoint.set(points.next());
+            }
+            return true;
+        }
+        if (currPoint.get() - PRINT_MARGIN_PACKETS_COUNT > packet.getChrono().getNo()) {
+            return true;
+        }
+        return false;
     }
 
     public static String findCommonStart(List<String> packets) {
@@ -120,7 +134,6 @@ public class TestWifiTraffic {
         }
         return isEqual(packets, currLength) ? packets.get(0).substring(0, currLength) : null;
     }
-
 
 
     private static boolean isEqual(List<String> packets, int length) {

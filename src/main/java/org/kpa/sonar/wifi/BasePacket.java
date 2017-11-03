@@ -77,7 +77,11 @@ public class BasePacket {
     }
 
     protected int getIntByOffset(int offset) {
-        return ByteBuffer.wrap(getData(), offset, 4).order(java.nio.ByteOrder.LITTLE_ENDIAN).getInt();
+        return getBufAt(offset).getInt();
+    }
+
+    public ByteBuffer getBufAt(int offset) {
+        return ByteBuffer.wrap(getData(), offset, Math.min(8, getData().length - offset)).order(java.nio.ByteOrder.LITTLE_ENDIAN);
     }
 
     public int getByte(int offset) {

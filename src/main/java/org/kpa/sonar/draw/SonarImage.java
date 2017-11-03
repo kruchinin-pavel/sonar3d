@@ -32,9 +32,9 @@ public class SonarImage {
 
     public void addPacket(ScalePacket packet) {
         if (viewDepth == -1) {
-            viewDepth = packet.getDepth();
+            viewDepth = packet.getViewDepth();
         }
-        lastDepth = packet.getDepth();
+        lastDepth = packet.getViewDepth();
         if (viewDepth < lastDepth) {
             viewDepth = lastDepth;
             redraw();
